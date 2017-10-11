@@ -5,7 +5,8 @@ import s from './Search.css';
 class Search extends React.Component {
   render() {
     return (
-      <div className={s.root}>
+      <div className={s.root}
+      >
         <div className={s.container}>
           <h1>Search Header!</h1>
         </div>
