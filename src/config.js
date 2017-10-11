@@ -65,4 +65,5 @@ module.exports = {
         'KTZ6cxoKnEakQCeSpZlaUCJWGAlTEBJj0y2EMkUBujA7zWSvaQ',
     },
   },
+  SALT_ROUNDS: 12,
 };

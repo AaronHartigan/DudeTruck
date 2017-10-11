@@ -25,7 +25,7 @@ import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import passport from './passport';
 import router from './router';
-import models from './data/models';
+import models, { User } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import config from './config';
@@ -64,8 +64,15 @@ app.use((err, req, res, next) => {
     console.error('[express-jwt-error]', req.cookies.id_token);
     // `clearCookie`, otherwise user can't use web-app until cookie expires
     res.clearCookie('id_token');
+  } else if (err.name === 'UnauthorizedError') {
+    res.redirect('/login');
   }
   next(err);
+});
+
+app.get('/logout', (req, res) => {
+  res.clearCookie('id_token');
+  res.redirect('/login');
 });
 
 app.use(passport.initialize());
@@ -73,26 +80,38 @@ app.use(passport.initialize());
 if (__DEV__) {
   app.enable('trust proxy');
 }
-app.get(
-  '/login/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email', 'user_location'],
-    session: false,
-  }),
-);
-app.get(
-  '/login/facebook/return',
-  passport.authenticate('facebook', {
-    failureRedirect: '/login',
-    session: false,
-  }),
-  (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, config.auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('/');
-  },
-);
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.find({
+    where: {
+      email,
+    },
+  })
+    .then(user => {
+      if (user && user.validPassword(password)) {
+        const expiresIn = 60 * 60 * 24 * 365; // 1 year
+        const token = jwt.sign({ id: user.id }, config.jwt.secret, {
+          expiresIn,
+        });
+        res.cookie('id_token', token, {
+          maxAge: 1000 * expiresIn,
+          httpOnly: true,
+        });
+        res.redirect('/search');
+      } else {
+        // Invalid password or no user
+        res.redirect('/login');
+      }
+    })
+    .catch(err => {
+      // Database error
+      console.log(err); // eslint-disable-line no-console
+      res.redirect('/login');
+    });
+});
 
 //
 // Register API middleware
@@ -143,9 +162,7 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>
-        {route.component}
-      </App>,
+      <App context={context}>{route.component}</App>,
     );
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.scripts = [assets.vendor.js];

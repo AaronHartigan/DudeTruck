@@ -1,14 +1,7 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
+import bcrypt from 'bcrypt';
 import DataType from 'sequelize';
 import Model from '../sequelize';
+import { SALT_ROUNDS } from '../../config';
 
 const User = Model.define(
   'User',
@@ -22,16 +15,43 @@ const User = Model.define(
     email: {
       type: DataType.STRING(255),
       validate: { isEmail: true },
+      unique: true,
     },
 
-    emailConfirmed: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
+    password: {
+      type: DataType.STRING,
+      allowNull: false,
+    },
+
+    type: {
+      type: DataType.STRING(255),
+      defaultValue: 'user',
     },
   },
   {
     indexes: [{ fields: ['email'] }],
+    instanceMethods: {
+      validPassword(password) {
+        return bcrypt.compare(password, this.password);
+      },
+    },
   },
 );
+
+function lowerEmail(instance) {
+  return instance.set('email', instance.email.toLowerCase());
+}
+
+function hashPassword(instance, done) {
+  if (!instance.changed('password')) {
+    return done();
+  }
+  return bcrypt
+    .hash(instance.password, SALT_ROUNDS)
+    .then(hash => instance.set('password', hash));
+}
+
+User.beforeCreate(hashPassword);
+User.beforeCreate(lowerEmail);
 
 export default User;
