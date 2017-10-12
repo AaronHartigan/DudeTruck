@@ -19,7 +19,7 @@ function action() {
     title,
     component: (
       <Layout>
-        <Register title={title} />
+        <Register />
       </Layout>
     ),
   };

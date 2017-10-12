@@ -8,23 +8,58 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from '../../components/Link';
 import s from './Register.css';
 
 class Register extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  };
-
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <h1>
-            {this.props.title}
-          </h1>
-          <p>...</p>
+        <div className={s.titleContainer}>
+          <span>Join DudeTruck today.</span>
+        </div>
+        <form method="post">
+          <div className={s.formGroup}>
+            <input
+              className={s.input}
+              id="email"
+              type="text"
+              name="email"
+              placeholder="Email Address"
+            />
+          </div>
+          <div className={s.formGroup}>
+            <input
+              className={s.input}
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+          <div className={s.formGroup}>
+            <input
+              className={s.input}
+              id="verifyPassword"
+              type="password"
+              name="verifyPassword"
+              placeholder="Verify Password"
+            />
+          </div>
+          <div className={[s.buttonContainer, s.formGroup].join(' ')}>
+            <button
+              className={s.button}
+              onClick={this.handleClick}
+              type="submit"
+            >
+              SIGN UP
+            </button>
+          </div>
+        </form>
+        <div className={s.registration}>
+          <span>Already registered? </span>
+          <Link to="/login">Log in</Link>
         </div>
       </div>
     );

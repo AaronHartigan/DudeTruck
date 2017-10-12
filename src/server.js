@@ -23,7 +23,6 @@ import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
-import passport from './passport';
 import router from './router';
 import models, { User } from './data/models';
 import schema from './data/schema';
@@ -75,8 +74,6 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-app.use(passport.initialize());
-
 if (__DEV__) {
   app.enable('trust proxy');
 }
@@ -93,7 +90,7 @@ app.post('/login', (req, res) => {
     .then(user => {
       if (user && user.validPassword(password)) {
         const expiresIn = 60 * 60 * 24 * 365; // 1 year
-        const token = jwt.sign({ id: user.id }, config.jwt.secret, {
+        const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
           expiresIn,
         });
         res.cookie('id_token', token, {
@@ -111,6 +108,29 @@ app.post('/login', (req, res) => {
       console.log(err); // eslint-disable-line no-console
       res.redirect('/login');
     });
+});
+
+app.post('/register', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const verifyPassword = req.body.verifyPassword;
+  if (email && verifyPassword && password === verifyPassword) {
+    User.create({
+      email,
+      password,
+    })
+      .then(() => {
+        res.redirect('/login');
+      })
+      .catch(err => {
+        // eslint-disable-line no-unused-vars
+        // database error
+        console.log(err); // eslint-disable-line no-console
+        res.redirect('/register');
+      });
+  } else {
+    res.redirect('/register');
+  }
 });
 
 //
