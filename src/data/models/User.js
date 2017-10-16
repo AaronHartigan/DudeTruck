@@ -33,8 +33,9 @@ const User = Model.define(
   },
 );
 
-User.prototype.validPassword = password =>
-  bcrypt.compare(password, this.password);
+User.prototype.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 function lowerEmail(instance) {
   return instance.set('email', instance.email.toLowerCase());
