@@ -88,24 +88,23 @@ app.post('/login', async (req, res) => {
         email,
       },
     });
-    if (user && user.validPassword(password)) {
-      const expiresIn = 60 * 60 * 24 * 365; // 1 year
-      const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
-        expiresIn,
-      });
-      res.cookie('id_token', token, {
-        maxAge: 1000 * expiresIn,
-        httpOnly: true,
-      });
-      res.redirect('/search');
-    } else {
-      // Invalid password or no user
-      res.redirect('/login');
+    if (!user || !user.validPassword(password)) {
+      return res.redirect('/login');
     }
+    const expiresIn = 60 * 60 * 24 * 365; // 1 year
+    const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
+      expiresIn,
+    });
+    res.cookie('id_token', token, {
+      maxAge: 1000 * expiresIn,
+      httpOnly: true,
+    });
+
+    return res.redirect('/search');
   } catch (err) {
     // Database error
     console.log(err); // eslint-disable-line no-console
-    res.redirect('/login');
+    return res.redirect('/login');
   }
 });
 
