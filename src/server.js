@@ -78,58 +78,58 @@ if (__DEV__) {
   app.enable('trust proxy');
 }
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.find({
-    where: {
-      email,
-    },
-  })
-    .then(user => {
-      if (user && user.validPassword(password)) {
-        const expiresIn = 60 * 60 * 24 * 365; // 1 year
-        const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
-          expiresIn,
-        });
-        res.cookie('id_token', token, {
-          maxAge: 1000 * expiresIn,
-          httpOnly: true,
-        });
-        res.redirect('/search');
-      } else {
-        // Invalid password or no user
-        res.redirect('/login');
-      }
-    })
-    .catch(err => {
-      // Database error
-      console.log(err); // eslint-disable-line no-console
-      res.redirect('/login');
+  try {
+    const user = await User.find({
+      where: {
+        email,
+      },
     });
+    if (user && user.validPassword(password)) {
+      const expiresIn = 60 * 60 * 24 * 365; // 1 year
+      const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
+        expiresIn,
+      });
+      res.cookie('id_token', token, {
+        maxAge: 1000 * expiresIn,
+        httpOnly: true,
+      });
+      res.redirect('/search');
+    } else {
+      // Invalid password or no user
+      res.redirect('/login');
+    }
+  } catch (err) {
+    // Database error
+    console.log(err); // eslint-disable-line no-console
+    res.redirect('/login');
+  }
 });
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const verifyPassword = req.body.verifyPassword;
-  if (email && verifyPassword && password === verifyPassword) {
-    User.create({
+
+  if (!email || !verifyPassword || !(password === verifyPassword)) {
+    return res.redirect('/register');
+  }
+  try {
+    const user = await User.create({
       email,
       password,
-    })
-      .then(() => {
-        res.redirect('/login');
-      })
-      .catch(err => {
-        // eslint-disable-line no-unused-vars
-        // database error
-        console.log(err); // eslint-disable-line no-console
-        res.redirect('/register');
-      });
-  } else {
-    res.redirect('/register');
+    });
+    if (!user) {
+      return res.redirect('/register');
+    }
+    return res.redirect('/login');
+  } catch (err) {
+    // database error
+    console.log(err); // eslint-disable-line no-console
+    return res.redirect('/register');
   }
 });
 
