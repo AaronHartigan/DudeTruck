@@ -119,18 +119,22 @@ app.post('/register', async (req, res) => {
   if (!email || !verifyPassword || !(password === verifyPassword)) {
     return res.redirect('/register');
   }
+
   try {
     const user = await User.create({
       email,
       password,
     });
+
     if (!user) {
       return res.redirect('/register');
     }
+
     return res.redirect('/login');
   } catch (err) {
     // database error
     console.log(err); // eslint-disable-line no-console
+
     return res.redirect('/register');
   }
 });
