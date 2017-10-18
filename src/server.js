@@ -18,6 +18,8 @@ import fetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import isEmail from 'validator/lib/isEmail';
+import validPassword from './core/validPassword';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -115,9 +117,26 @@ app.post('/register', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const verifyPassword = req.body.verifyPassword;
+  const failureUrl = `/register?email=${email}`;
+  const successUrl = `/login?email=${email}`;
+  const errors = [];
 
-  if (!email || !verifyPassword || !(password === verifyPassword)) {
-    return res.redirect('/register');
+  if (
+    !isEmail(email) ||
+    !validPassword(password) ||
+    !(password === verifyPassword)
+  ) {
+    if (!isEmail(email)) {
+      errors.push(1);
+    }
+    if (!validPassword(password)) {
+      errors.push(2);
+    }
+    if (!(password === verifyPassword)) {
+      errors.push(3);
+    }
+
+    return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
   }
 
   try {
@@ -127,15 +146,18 @@ app.post('/register', async (req, res) => {
     });
 
     if (!user) {
-      return res.redirect('/register');
+      errors.push(0);
+
+      return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
     }
 
-    return res.redirect('/login');
+    return res.redirect(`${successUrl}`);
   } catch (err) {
+    errors.push(6);
     // database error
     console.log(err); // eslint-disable-line no-console
 
-    return res.redirect('/register');
+    return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
   }
 });
 

@@ -13,13 +13,13 @@ import Register from './Register';
 
 const title = 'New User Registration';
 
-function action() {
+function action({ query }) {
   return {
     chunks: ['register'],
     title,
     component: (
       <Layout>
-        <Register />
+        <Register query={query} />
       </Layout>
     ),
   };
