@@ -88,9 +88,11 @@ app.post('/login', async (req, res) => {
         email,
       },
     });
+
     if (!user || !user.validPassword(password)) {
       return res.redirect('/login');
     }
+
     const expiresIn = 60 * 60 * 24 * 365; // 1 year
     const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
       expiresIn,
@@ -104,6 +106,7 @@ app.post('/login', async (req, res) => {
   } catch (err) {
     // Database error
     console.log(err); // eslint-disable-line no-console
+
     return res.redirect('/login');
   }
 });
