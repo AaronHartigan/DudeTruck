@@ -120,7 +120,7 @@ app.post('/register', async (req, res) => {
   const failureUrl = `/register?email=${email}`;
   const successUrl = `/login?email=${email}`;
   const errors = [];
-
+  // TODO: Change error numbers to strings
   if (
     !isEmail(email) ||
     !validPassword(password) ||

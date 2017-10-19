@@ -75,6 +75,7 @@ class Register extends React.Component {
   }
 
   render() {
+    // TODO: change to strings
     let errors = this.props.query.errors;
     errors = typeof errors === 'string' ? JSON.parse(errors) : [];
     errors = errors.map(err => (
