@@ -16,6 +16,7 @@ const me = {
       request.user && {
         id: request.user.id,
         email: request.user.email,
+        type: request.user.type,
       }
     );
   },

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import isEmail from 'validator/lib/isEmail';
 import validPassword from '../../core/validPassword';
-import { errorMessages } from '../../constants';
+import { userTypes } from '../../constants';
 import Link from '../../components/Link';
 import s from './Register.css';
 
@@ -30,11 +30,13 @@ class Register extends React.Component {
       validEmail: true,
       validPassword: true,
       validVerifyPassword: true,
+      selectValue: userTypes.user,
     };
 
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.validateVerifyPassword = this.validateVerifyPassword.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   validateEmail(event) {
@@ -74,13 +76,14 @@ class Register extends React.Component {
     }
   }
 
+  handleSelect(event) {
+    this.setState({ selectValue: event.target.value });
+  }
+
   render() {
-    // TODO: change to strings
     let errors = this.props.query.errors;
     errors = typeof errors === 'string' ? JSON.parse(errors) : [];
-    errors = errors.map(err => (
-      <div key={err.toString()}>{errorMessages[err]}</div>
-    ));
+    errors = errors.map((err, idx) => <div key={idx.toString()}>{err}</div>);
 
     return (
       <div className={s.root}>
@@ -89,6 +92,16 @@ class Register extends React.Component {
         </div>
         {errors}
         <form method="post">
+          <span>I am...</span>
+          <select
+            id="type"
+            name="type"
+            value={this.state.selectValue}
+            onChange={this.handleSelect}
+          >
+            <option value={userTypes.user}>looking for food</option>
+            <option value={userTypes.vendor}>a food truck vendor</option>
+          </select>
           <div className={s.formGroup}>
             <input
               className={s.input}
