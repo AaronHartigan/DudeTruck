@@ -117,48 +117,41 @@ app.post('/register', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const verifyPassword = req.body.verifyPassword;
+  const type = req.body.type;
   const failureUrl = `/register?email=${email}`;
   const successUrl = `/login?email=${email}`;
   const errors = [];
-  // TODO: Change error numbers to strings
-  if (
-    !isEmail(email) ||
-    !validPassword(password) ||
-    !(password === verifyPassword)
-  ) {
-    if (!isEmail(email)) {
-      errors.push(1);
-    }
-    if (!validPassword(password)) {
-      errors.push(2);
-    }
-    if (!(password === verifyPassword)) {
-      errors.push(3);
-    }
 
+  if (!isEmail(email)) {
+    errors.push('Invalid email address');
+  }
+  if (!validPassword(password)) {
+    errors.push('Invalid password');
+  }
+  if (!(password === verifyPassword)) {
+    errors.push('Password fields did not match');
+  }
+  if (errors.length === 0) {
+    try {
+      const user = await User.create({
+        email,
+        password,
+        type,
+      });
+
+      if (!user) {
+        errors.push('Unable to connect to database');
+      }
+    } catch (err) {
+      errors.push('Email address already exists');
+      // database error
+      console.log(err); // eslint-disable-line no-console
+    }
+  }
+  if (errors.length > 0) {
     return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
   }
-
-  try {
-    const user = await User.create({
-      email,
-      password,
-    });
-
-    if (!user) {
-      errors.push(0);
-
-      return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
-    }
-
-    return res.redirect(`${successUrl}`);
-  } catch (err) {
-    errors.push(6);
-    // database error
-    console.log(err); // eslint-disable-line no-console
-
-    return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
-  }
+  return res.redirect(`${successUrl}`);
 });
 
 //

@@ -13,7 +13,6 @@ import config from '../config';
 const sequelize = new Sequelize(config.databaseUrl, {
   define: {
     freezeTableName: true,
-    force: true,
   },
 });
 

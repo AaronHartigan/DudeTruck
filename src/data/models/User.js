@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import DataType from 'sequelize';
 import Model from '../sequelize';
+import { userTypes } from '../../constants';
 import { SALT_ROUNDS } from '../../config';
 
 const User = Model.define(
@@ -25,7 +26,7 @@ const User = Model.define(
 
     type: {
       type: DataType.STRING(255),
-      defaultValue: 'user',
+      defaultValue: userTypes.user,
     },
   },
   {

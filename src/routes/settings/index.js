@@ -6,6 +6,8 @@ import SettingsUser from '../../components/Settings/User';
 const title = 'Settings';
 const isVendor = false;
 
+// TODO: implement fetch to get user type
+
 function action() {
   if (isVendor) {
     return {
