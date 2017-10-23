@@ -17,28 +17,28 @@ async function action({ fetch }) {
     throw new Error('Unable to fetch account data');
   }
 
+  let page;
   if (data.me.type === userTypes.vendor) {
-    return {
-      chunks: ['settings'],
-      title,
-      component: (
-        <Layout>
-          <SettingsVendor />
-        </Layout>
-      ),
-    };
+    page = (
+      <Layout>
+        <SettingsVendor />
+      </Layout>
+    );
   } else if (data.me.type === userTypes.user) {
-    return {
-      chunks: ['settings'],
-      title,
-      component: (
-        <Layout>
-          <SettingsUser />
-        </Layout>
-      ),
-    };
+    page = (
+      <Layout>
+        <SettingsUser />
+      </Layout>
+    );
+  } else {
+    throw new Error('User account type is invalid.  Please contact support.');
   }
-  throw new Error('User account type is invalid.  Please contact support.');
+
+  return {
+    chunks: ['settings'],
+    title,
+    component: page,
+  };
 }
 
 export default action;
