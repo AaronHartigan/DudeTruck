@@ -1,15 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Link from '../../components/Link';
 import s from './Login.css';
 
 class Login extends React.Component {
+  static propTypes = {
+    query: PropTypes.shape({
+      email: PropTypes.string,
+      errors: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    query: {
+      email: '',
+      errors: '',
+    },
+  };
+
   render() {
+    let errors = this.props.query.errors;
+    errors = typeof errors === 'string' ? JSON.parse(errors) : [];
+    errors = errors.map((err, idx) => <div key={idx.toString()}>{err}</div>);
+
     return (
       <div className={s.root}>
         <div className={s.logoContainer}>
           <img src={''} alt="DudeTruck" />
         </div>
+        {errors}
         <form method="post">
           <div className={s.formGroup}>
             <input
@@ -18,6 +38,7 @@ class Login extends React.Component {
               type="text"
               name="email"
               placeholder="Email Address"
+              defaultValue={this.props.query.email}
             />
           </div>
           <div className={s.formGroup}>

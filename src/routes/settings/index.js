@@ -2,14 +2,22 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import SettingsVendor from '../../components/Settings/Vendor';
 import SettingsUser from '../../components/Settings/User';
+import { userTypes } from '../../constants';
 
 const title = 'Settings';
-const isVendor = false;
 
-// TODO: implement fetch to get user type
+async function action({ fetch }) {
+  const resp = await fetch('/graphql', {
+    body: JSON.stringify({
+      query: '{me{type}}',
+    }),
+  });
+  const { data } = await resp.json();
+  if (!data || !data.me) {
+    throw new Error('Unable to fetch account data');
+  }
 
-function action() {
-  if (isVendor) {
+  if (data.me.type === userTypes.vendor) {
     return {
       chunks: ['settings'],
       title,
@@ -19,17 +27,18 @@ function action() {
         </Layout>
       ),
     };
+  } else if (data.me.type === userTypes.user) {
+    return {
+      chunks: ['settings'],
+      title,
+      component: (
+        <Layout>
+          <SettingsUser />
+        </Layout>
+      ),
+    };
   }
-
-  return {
-    chunks: ['settings'],
-    title,
-    component: (
-      <Layout>
-        <SettingsUser />
-      </Layout>
-    ),
-  };
+  throw new Error('User account type is invalid.  Please contact support.');
 }
 
 export default action;

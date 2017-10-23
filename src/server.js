@@ -83,6 +83,9 @@ if (__DEV__) {
 app.post('/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const failureUrl = `/login?email=${email}`;
+  const successUrl = '/search';
+  const errors = [];
 
   try {
     const user = await User.find({
@@ -92,7 +95,8 @@ app.post('/login', async (req, res) => {
     });
 
     if (!user || !user.validPassword(password)) {
-      return res.redirect('/login');
+      errors.push('Invalid email or password');
+      return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
     }
 
     const expiresIn = 60 * 60 * 24 * 365; // 1 year
@@ -104,12 +108,12 @@ app.post('/login', async (req, res) => {
       httpOnly: true,
     });
 
-    return res.redirect('/search');
+    return res.redirect(`${successUrl}`);
   } catch (err) {
-    // Database error
+    errors.push('Unable to connect to database');
     console.log(err); // eslint-disable-line no-console
 
-    return res.redirect('/login');
+    return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
   }
 });
 

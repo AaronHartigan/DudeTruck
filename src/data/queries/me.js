@@ -8,16 +8,18 @@
  */
 
 import UserType from '../types/UserType';
+import User from '../models/User';
 
 const me = {
   type: UserType,
-  resolve({ request }) {
+  resolve(root, args, { user }) {
     return (
-      request.user && {
-        id: request.user.id,
-        email: request.user.email,
-        type: request.user.type,
-      }
+      user &&
+      User.find({
+        where: {
+          id: user.id,
+        },
+      })
     );
   },
 };

@@ -13,13 +13,13 @@ import Login from './Login';
 
 const title = 'Log In';
 
-function action() {
+function action({ query }) {
   return {
     chunks: ['login'],
     title,
     component: (
       <Layout>
-        <Login />
+        <Login query={query} />
       </Layout>
     ),
   };
