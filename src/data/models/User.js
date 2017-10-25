@@ -28,7 +28,23 @@ const User = Model.define(
       type: DataType.STRING(255),
       defaultValue: userTypes.user,
     },
+
+    vegan: {
+      type: DataType.Boolean,
+      defaultValue: false,
+    },
+
+    vegetarian: {
+      type: DataType.Boolean,
+      defaultValue: false,
+    },
+
+    gluten_free: {
+      type: DataType.Boolean,
+      defaultValue: false,
+    },
   },
+
   {
     indexes: [{ fields: ['email'] }],
   },
