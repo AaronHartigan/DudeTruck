@@ -30,17 +30,17 @@ const User = Model.define(
     },
 
     vegan: {
-      type: DataType.Boolean,
+      type: DataType.BOOLEAN,
       defaultValue: false,
     },
 
     vegetarian: {
-      type: DataType.Boolean,
+      type: DataType.BOOLEAN,
       defaultValue: false,
     },
 
     gluten_free: {
-      type: DataType.Boolean,
+      type: DataType.BOOLEAN,
       defaultValue: false,
     },
   },
