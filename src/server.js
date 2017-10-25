@@ -29,6 +29,7 @@ import router from './router';
 import models, { User } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
+import configureStore from './store/configureStore';
 import config from './config';
 
 const app = express();
@@ -178,6 +179,15 @@ app.get('*', async (req, res, next) => {
   try {
     const css = new Set();
 
+    const initialState = {
+      user: req.user || null,
+    };
+
+    const store = configureStore(initialState, {
+      fetch,
+      history: null,
+    });
+
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
@@ -192,12 +202,16 @@ app.get('*', async (req, res, next) => {
         baseUrl: config.api.serverUrl,
         cookie: req.headers.cookie,
       }),
+      store,
+      storeSubscription: null,
     };
 
     const route = await router.resolve({
       ...context,
+      store,
       path: req.path,
       query: req.query,
+      user: req.user || null,
     });
 
     if (route.redirect) {
@@ -207,7 +221,9 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
     data.children = ReactDOM.renderToString(
-      <App context={context}>{route.component}</App>,
+      <App context={context} store={store}>
+        {route.component}
+      </App>,
     );
     data.styles = [{ id: 'css', cssText: [...css].join('') }];
     data.scripts = [assets.vendor.js];
@@ -217,6 +233,7 @@ app.get('*', async (req, res, next) => {
     data.scripts.push(assets.client.js);
     data.app = {
       apiUrl: config.api.clientUrl,
+      state: context.store.getState(),
     };
 
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);

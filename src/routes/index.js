@@ -47,10 +47,6 @@ const routes = {
       path: '/vendor',
       load: () => import(/* webpackChunkName: 'vendorPage' */ './vendor'),
     },
-    {
-      path: '/admin',
-      load: () => import(/* webpackChunkName: 'admin' */ './admin'),
-    },
 
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     {

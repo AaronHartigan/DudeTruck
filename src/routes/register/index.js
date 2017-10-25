@@ -10,10 +10,17 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Register from './Register';
+import isLoggedIn from '../../core/authorization';
+import { loggedInRedirect } from '../../constants';
 
 const title = 'New User Registration';
 
-function action({ query }) {
+function action({ store, query }) {
+  const user = store && store.getState().user;
+  if (isLoggedIn(user)) {
+    return { redirect: loggedInRedirect };
+  }
+
   return {
     chunks: ['register'],
     title,

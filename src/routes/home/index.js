@@ -10,8 +10,15 @@
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
+import isLoggedIn from '../../core/authorization';
+import { loggedInRedirect } from '../../constants';
 
-async function action() {
+async function action({ store }) {
+  const user = store && store.getState().user;
+  if (isLoggedIn(user)) {
+    return { redirect: loggedInRedirect };
+  }
+
   return {
     chunks: ['home'],
     title: 'React Starter Kit',
