@@ -55,10 +55,21 @@ app.use(bodyParser.json());
 app.use(
   expressJwt({
     secret: config.auth.jwt.secret,
+    credentialsRequired: true,
+    getToken: req => req.cookies.id_token,
+  }).unless({
+    path: config.publicRoutes,
+  }),
+);
+
+app.use(
+  expressJwt({
+    secret: config.auth.jwt.secret,
     credentialsRequired: false,
     getToken: req => req.cookies.id_token,
   }),
 );
+
 // Error handler for express-jwt
 app.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
@@ -66,6 +77,7 @@ app.use((err, req, res, next) => {
     console.error('[express-jwt-error]', req.cookies.id_token);
     // `clearCookie`, otherwise user can't use web-app until cookie expires
     res.clearCookie('id_token');
+    res.redirect('/login');
   } else if (err.name === 'UnauthorizedError') {
     res.redirect('/login');
   }
