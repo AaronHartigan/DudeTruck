@@ -17,9 +17,18 @@ import Layout from './Layout';
 
 describe('Layout', () => {
   test('renders children correctly', () => {
+    const context = {
+      insertCss: () => {},
+      fetch: () => {},
+      store: {
+        subscribe: () => {},
+        dispatch: () => {},
+        getState: () => {},
+      },
+    };
     const wrapper = renderer
       .create(
-        <App context={{ insertCss: () => {} }}>
+        <App context={context}>
           <Layout>
             <div className="child" />
           </Layout>
