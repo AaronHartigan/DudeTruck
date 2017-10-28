@@ -14,8 +14,8 @@ import {
   GraphQLNonNull as NonNull,
 } from 'graphql';
 
-const UserType = new ObjectType({
-  name: 'User',
+const MeType = new ObjectType({
+  name: 'Me',
   fields: {
     id: { type: new NonNull(ID) },
     email: { type: StringType },
@@ -23,4 +23,4 @@ const UserType = new ObjectType({
   },
 });
 
-export default UserType;
+export default MeType;

@@ -7,11 +7,11 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import UserType from '../types/UserType';
+import MeType from '../types/MeType';
 import User from '../models/User';
 
 const me = {
-  type: UserType,
+  type: MeType,
   resolve(root, args, { user }) {
     return (
       user &&
