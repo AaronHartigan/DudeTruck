@@ -1,3 +1,5 @@
+https://travis-ci.org/AaronHartigan/DudeTruck.svg?branch=master
+
 ## Getting Started
 
 ### Requirements
@@ -62,10 +64,8 @@ open in your browser.
 To launch unit tests:
 
 ```shell
-$ npm run test          # Run unit tests with Mocha
+$ npm run test          # Run unit tests with Jest
 ```
-
-Note: no tests currently exist.
 
 ### How to Update
 
@@ -104,3 +104,10 @@ $ git push
 NOTE: If you edited files that someone else has edited, you will get a merge conflict.
 You need to manually go into each conflicted file, and choose which changes
 to keep. After fixing the conflicts, commit and push again.
+
+### Automated Builds
+
+This project uses Travis-ci.  Travis-ci is automatically run on every commit, and
+it runs a linter and the entire test suite.  The current build status can be seen
+at the top of this README.  On a failing build, travis-ci automatically sends out
+an email to whoever is on the mailing list (which is currently set to be the dev team).
