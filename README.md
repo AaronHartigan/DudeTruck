@@ -111,3 +111,19 @@ This project uses Travis-ci.  Travis-ci is automatically run on every commit, an
 it runs a linter and the entire test suite.  The current build status can be seen
 at the top of this README.  On a failing build, travis-ci automatically sends out
 an email to whoever is on the mailing list (which is currently set to be the dev team).
+
+### How to Build
+
+```shell
+$ npm run build -- --release
+```
+
+This command will put the compiled, minified code into the build folder.  Once completed,
+you may zip the contents of the build folder and upload to a server.
+A staging release for DudeTruck can currently be found [here](http://dudetruck-env.ays9rzzt3c.us-west-1.elasticbeanstalk.com/)
+
+### Submitting Bugs
+
+Our bug repository is located on [Trello](https://trello.com/b/TH004EHd/dudetruck)
+When working on a bug, move it to "In Progress".  When the bug is fixed, move it to "Needs Testing".
+Once the bug has been tested and verify to no longer exist, move it to "Done".
