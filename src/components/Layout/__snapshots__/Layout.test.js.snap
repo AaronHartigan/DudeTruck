@@ -56,12 +56,12 @@ exports[`Layout renders children correctly 1`] = `
         <h1
           className="bannerTitle"
         >
-          Food
+          DudeTruck
         </h1>
         <p
           className="bannerDesc"
         >
-          Find some food
+          Leads you to a foodtruck
         </p>
       </div>
     </div>
@@ -103,6 +103,30 @@ exports[`Layout renders children correctly 1`] = `
         onClick={[Function]}
       >
         Privacy
+      </a>
+      <span
+        className="spacer"
+      >
+        ·
+      </span>
+      <a
+        className="link"
+        href="/contact"
+        onClick={[Function]}
+      >
+        Contact Us
+      </a>
+      <span
+        className="spacer"
+      >
+        ·
+      </span>
+      <a
+        className="link"
+        href="/help"
+        onClick={[Function]}
+      >
+        Help
       </a>
     </div>
   </div>
