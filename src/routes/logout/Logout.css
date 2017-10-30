@@ -1,0 +1,12 @@
+@import '../../components/variables.css';
+
+body {
+  margin: 0;
+}
+
+.root > span {
+  text-align: center;
+  font-weight: 600;
+  color: #333;
+  font-size: 30px;
+}

@@ -147,8 +147,7 @@ class Register extends React.Component {
           </div>
         </form>
         <div className={s.registration}>
-          <span>Already registered? </span>
-          <Link to="/login">Log in</Link>
+          Already registered? <Link to="/login">Log in</Link>
         </div>
       </div>
     );

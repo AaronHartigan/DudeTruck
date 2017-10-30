@@ -23,3 +23,22 @@
 h1 {
   text-align: center;
 }
+
+.button {
+  width: 150px;
+  display: block;
+  background-color: var(--font-color);
+  border: none;
+  color: white;
+  padding: 20px 38px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px auto;
+}
+
+.button:hover {
+  background-color: var(--font-highlight-color);
+  cursor: pointer;
+}

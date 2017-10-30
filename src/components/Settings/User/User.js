@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from '../../Link';
 import s from './User.css';
 
 class User extends React.Component {
@@ -28,7 +29,9 @@ class User extends React.Component {
             </select>
           </dl>
           <button type="button">Save</button> &nbsp;&nbsp;&nbsp;
-          <button type="button">Log out</button> &nbsp;&nbsp;&nbsp;
+          <Link to="/logout">
+            <button type="button">Log out</button> &nbsp;&nbsp;&nbsp;
+          </Link>
         </div>
       </div>
     );

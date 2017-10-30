@@ -57,9 +57,7 @@ class Login extends React.Component {
           </div>
         </form>
         <div className={s.registration}>
-          <span>Click </span>
-          <Link to="/register">here</Link>
-          <span> to sign up</span>
+          Click <Link to="/register">here</Link> to sign up
         </div>
       </div>
     );

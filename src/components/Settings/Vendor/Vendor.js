@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from '../../Link';
 import s from './Vendor.css';
 
 class Vendor extends React.Component {
@@ -29,7 +30,9 @@ class Vendor extends React.Component {
           </dl>
           <button type="button">Save</button> &nbsp;&nbsp;&nbsp;
           <button type="button">Set Location </button>&nbsp;&nbsp;&nbsp;
-          <button type="button">Log out</button>
+          <Link to="/logout">
+            <button type="button">Log out</button>
+          </Link>
         </div>
       </div>
     );

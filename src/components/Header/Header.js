@@ -32,8 +32,8 @@ class Header extends React.Component {
             <span className={s.brandTxt}>DudeTruck</span>
           </Link>
           <div className={s.banner}>
-            <h1 className={s.bannerTitle}>Food</h1>
-            <p className={s.bannerDesc}>Find some food</p>
+            <h1 className={s.bannerTitle}>DudeTruck</h1>
+            <p className={s.bannerDesc}>Leads you to a foodtruck</p>
           </div>
         </div>
       </div>

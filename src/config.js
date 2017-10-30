@@ -65,6 +65,15 @@ module.exports = {
         'KTZ6cxoKnEakQCeSpZlaUCJWGAlTEBJj0y2EMkUBujA7zWSvaQ',
     },
   },
-  publicRoutes: ['/', '/register', '/login', '/logout', '/about', '/privacy'],
+  publicRoutes: [
+    '/',
+    '/register',
+    '/login',
+    '/logout',
+    '/about',
+    '/privacy',
+    '/contact',
+    '/help',
+  ],
   SALT_ROUNDS: 12,
 };

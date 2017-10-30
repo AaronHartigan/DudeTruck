@@ -24,12 +24,24 @@ const routes = {
       load: () => import(/* webpackChunkName: 'login' */ './login'),
     },
     {
+      path: '/logout',
+      load: () => import(/* webpackChunkName: 'logout' */ './logout'),
+    },
+    {
       path: '/register',
       load: () => import(/* webpackChunkName: 'register' */ './register'),
     },
     {
       path: '/about',
       load: () => import(/* webpackChunkName: 'about' */ './about'),
+    },
+    {
+      path: '/contact',
+      load: () => import(/* webpackChunkName: 'contact' */ './contact'),
+    },
+    {
+      path: '/help',
+      load: () => import(/* webpackChunkName: 'help' */ './help'),
     },
     {
       path: '/privacy',

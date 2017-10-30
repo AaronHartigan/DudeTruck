@@ -17,12 +17,16 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <Link to="/login">
-            <button>LOG IN</button>
-          </Link>
-          <Link to="/register">
-            <button>SIGN UP</button>
-          </Link>
+          <div>
+            <Link className={s.button} to="/login">
+              LOG IN
+            </Link>
+          </div>
+          <div>
+            <Link className={s.button} to="/register">
+              SIGN UP
+            </Link>
+          </div>
         </div>
       </div>
     );

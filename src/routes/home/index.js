@@ -21,7 +21,7 @@ async function action({ store }) {
 
   return {
     chunks: ['home'],
-    title: 'React Starter Kit',
+    title: 'DudeTruck',
     component: (
       <Layout>
         <Home />
