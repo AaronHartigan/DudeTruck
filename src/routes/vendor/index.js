@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from '../../components/Layout';
 import Vendor from '../../components/Vendor';
 import isLoggedIn from '../../core/authorization';
 import { loggedOutRedirect } from '../../constants';
@@ -12,7 +13,11 @@ async function action({ store }) {
   return {
     chunks: ['vendorPage'],
     title: 'Vendor Information',
-    component: <Vendor />,
+    component: (
+      <Layout isLoggedIn={isLoggedIn(user)}>
+        <Vendor />
+      </Layout>
+    ),
   };
 }
 

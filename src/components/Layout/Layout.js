@@ -20,12 +20,13 @@ import Footer from '../Footer';
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
   };
 
   render() {
     return (
       <div>
-        <Header />
+        <Header isLoggedIn={this.props.isLoggedIn} />
         {this.props.children}
         <Footer />
       </div>

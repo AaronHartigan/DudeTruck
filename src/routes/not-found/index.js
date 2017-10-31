@@ -10,15 +10,18 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import NotFound from './NotFound';
+import isLoggedIn from '../../core/authorization';
 
 const title = 'Page Not Found';
 
-function action() {
+function action({ store }) {
+  const user = store && store.getState().user;
+
   return {
     chunks: ['not-found'],
     title,
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <NotFound title={title} />
       </Layout>
     ),

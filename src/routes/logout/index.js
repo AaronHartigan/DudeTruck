@@ -16,7 +16,7 @@ function action({ store }) {
     chunks: ['logout'],
     title,
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <Logout />
       </Layout>
     ),

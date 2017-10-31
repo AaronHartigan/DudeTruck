@@ -28,13 +28,13 @@ async function action({ store, fetch }) {
   let page;
   if (data.me.type === userTypes.vendor) {
     page = (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <SettingsVendor />
       </Layout>
     );
   } else if (data.me.type === userTypes.user) {
     page = (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <SettingsUser />
       </Layout>
     );

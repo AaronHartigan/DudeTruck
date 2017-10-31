@@ -11,13 +11,16 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Page from '../../components/Page';
 import privacy from './privacy.md';
+import isLoggedIn from '../../core/authorization';
 
-function action() {
+function action({ store }) {
+  const user = store && store.getState().user;
+
   return {
     chunks: ['privacy'],
     title: privacy.title,
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <Page {...privacy} />
       </Layout>
     ),

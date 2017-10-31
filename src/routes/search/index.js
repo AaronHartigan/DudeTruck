@@ -14,7 +14,7 @@ async function action({ store }) {
     chunks: ['search'],
     title: 'Search for a Foodtruck',
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <Search />
       </Layout>
     ),

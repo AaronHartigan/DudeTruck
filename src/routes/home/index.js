@@ -23,7 +23,7 @@ async function action({ store }) {
     chunks: ['home'],
     title: 'DudeTruck',
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <Home />
       </Layout>
     ),

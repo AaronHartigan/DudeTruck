@@ -19,10 +19,6 @@ class Footer extends React.Component {
         <div className={s.container}>
           <span className={s.text}>© DudeTruck</span>
           <span className={s.spacer}>·</span>
-          <Link className={s.link} to="/about">
-            About Us
-          </Link>
-          <span className={s.spacer}>·</span>
           <Link className={s.link} to="/privacy">
             Privacy
           </Link>

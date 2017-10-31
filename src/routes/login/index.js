@@ -25,7 +25,7 @@ function action({ store, query }) {
     chunks: ['login'],
     title,
     component: (
-      <Layout>
+      <Layout isLoggedIn={isLoggedIn(user)}>
         <Login query={query} />
       </Layout>
     ),
