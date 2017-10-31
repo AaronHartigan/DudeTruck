@@ -62,20 +62,6 @@ exports[`Layout renders children correctly 1`] = `
           DudeTruck
         </span>
       </a>
-      <div
-        className="banner"
-      >
-        <h1
-          className="bannerTitle"
-        >
-          DudeTruck
-        </h1>
-        <p
-          className="bannerDesc"
-        >
-          Leads you to a foodtruck
-        </p>
-      </div>
     </div>
   </div>
   <div
