@@ -14,10 +14,22 @@ exports[`Layout renders children correctly 1`] = `
       >
         <a
           className="link"
-          href="/search"
+          href="/help"
           onClick={[Function]}
         >
-          Search
+          Help
+        </a>
+        <span
+          className="spacer"
+        >
+          |
+        </span>
+        <a
+          className="link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Login
         </a>
         <span
           className="spacer"
@@ -26,10 +38,10 @@ exports[`Layout renders children correctly 1`] = `
         </span>
         <a
           className="link highlight"
-          href="/settings"
+          href="/register"
           onClick={[Function]}
         >
-          Settings
+          Sign Up
         </a>
       </div>
       <a
@@ -80,18 +92,6 @@ exports[`Layout renders children correctly 1`] = `
       >
         © DudeTruck
       </span>
-      <span
-        className="spacer"
-      >
-        ·
-      </span>
-      <a
-        className="link"
-        href="/about"
-        onClick={[Function]}
-      >
-        About Us
-      </a>
       <span
         className="spacer"
       >

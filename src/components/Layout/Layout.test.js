@@ -29,7 +29,7 @@ describe('Layout', () => {
     const wrapper = renderer
       .create(
         <App context={context}>
-          <Layout>
+          <Layout isLoggedIn={false}>
             <div className="child" />
           </Layout>
         </App>,
