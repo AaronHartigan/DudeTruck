@@ -26,7 +26,7 @@ import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import router from './router';
-import models, { User } from './data/models';
+import models, { User, Vendor } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -78,9 +78,8 @@ app.use((err, req, res, next) => {
     // `clearCookie`, otherwise user can't use web-app until cookie expires
     res.clearCookie('id_token');
     res.redirect('/login');
-  } else if (err.name === 'UnauthorizedError') {
-    res.redirect('/login');
   }
+
   next(err);
 });
 
@@ -94,18 +93,26 @@ if (__DEV__) {
 }
 
 app.post('/login', async (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase().trim();
   const password = req.body.password;
   const failureUrl = `/login?email=${email}`;
   const successUrl = '/search';
   const errors = [];
 
   try {
-    const user = await User.find({
+    let user;
+    user = await User.findOne({
       where: {
         email,
       },
     });
+    if (!user) {
+      user = await Vendor.findOne({
+        where: {
+          email,
+        },
+      });
+    }
 
     if (!user || !user.validPassword(password)) {
       errors.push('Invalid email or password');
@@ -131,7 +138,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const email = req.body.email;
+  const email = req.body.email.trim();
   const password = req.body.password;
   const verifyPassword = req.body.verifyPassword;
   const type = req.body.type;
@@ -150,11 +157,18 @@ app.post('/register', async (req, res) => {
   }
   if (errors.length === 0) {
     try {
-      const user = await User.create({
-        email,
-        password,
-        type,
-      });
+      let user = null;
+      if (type === 'user') {
+        user = await User.create({
+          email,
+          password,
+        });
+      } else if (type === 'vendor') {
+        user = await Vendor.create({
+          email,
+          password,
+        });
+      }
 
       if (!user) {
         errors.push('Unable to connect to database');

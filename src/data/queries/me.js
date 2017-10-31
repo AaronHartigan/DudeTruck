@@ -9,18 +9,26 @@
 
 import MeType from '../types/MeType';
 import User from '../models/User';
+import Vendor from '../models/Vendor';
 
 const me = {
   type: MeType,
-  resolve(root, args, { user }) {
-    return (
-      user &&
-      User.find({
+  async resolve(root, args, { user }) {
+    let meObject;
+    meObject = await User.findOne({
+      where: {
+        id: user.id,
+      },
+    });
+    if (!meObject) {
+      meObject = await Vendor.findOne({
         where: {
           id: user.id,
         },
-      })
-    );
+      });
+    }
+
+    return meObject;
   },
 };
 

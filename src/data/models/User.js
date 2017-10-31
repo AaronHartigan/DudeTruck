@@ -19,14 +19,24 @@ const User = Model.define(
       unique: true,
     },
 
+    type: {
+      type: DataType.STRING(16),
+      defaultValue: userTypes.user,
+    },
+
+    name: {
+      type: DataType.STRING(255),
+      defaultValue: '',
+    },
+
+    age: {
+      type: DataType.INTEGER,
+      allowNull: true,
+    },
+
     password: {
       type: DataType.STRING,
       allowNull: false,
-    },
-
-    type: {
-      type: DataType.STRING(255),
-      defaultValue: userTypes.user,
     },
 
     vegan: {

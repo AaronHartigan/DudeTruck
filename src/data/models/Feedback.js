@@ -4,14 +4,10 @@ import Model from '../sequelize';
 const Feedback = Model.define(
   'Feedback',
   {
-    userID: {
-      type: DataType.Integer,
-      foreignKey: true,
-    },
-
-    vendorID: {
-      type: DataType.INTEGER,
-      foreignKey: true,
+    id: {
+      type: DataType.UUID,
+      defaultValue: DataType.UUIDV1,
+      primaryKey: true,
     },
 
     stars5Count: {
