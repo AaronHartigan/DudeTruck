@@ -22,7 +22,11 @@ class Login extends React.Component {
   render() {
     let errors = this.props.query.errors;
     errors = typeof errors === 'string' ? JSON.parse(errors) : [];
-    errors = errors.map((err, idx) => <div key={idx.toString()}>{err}</div>);
+    errors = errors.map((err, idx) => (
+      <div key={idx.toString()} className={s.error}>
+        {err}
+      </div>
+    ));
 
     return (
       <div className={s.root}>

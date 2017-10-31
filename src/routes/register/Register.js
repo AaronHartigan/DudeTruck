@@ -83,7 +83,11 @@ class Register extends React.Component {
   render() {
     let errors = this.props.query.errors;
     errors = typeof errors === 'string' ? JSON.parse(errors) : [];
-    errors = errors.map((err, idx) => <div key={idx.toString()}>{err}</div>);
+    errors = errors.map((err, idx) => (
+      <div key={idx.toString()} className={s.error}>
+        {err}
+      </div>
+    ));
 
     return (
       <div className={s.root}>
@@ -113,7 +117,9 @@ class Register extends React.Component {
               defaultValue={this.props.query.email}
             />
           </div>
-          {!this.state.validEmail && <div>Invalid email address</div>}
+          {!this.state.validEmail && (
+            <div className={s.error}>Invalid email address</div>
+          )}
           <div className={s.formGroup}>
             <input
               className={s.input}
@@ -124,7 +130,12 @@ class Register extends React.Component {
               onChange={this.validatePassword}
             />
           </div>
-          {!this.state.validPassword && <div>Invalid password</div>}
+          {!this.state.validPassword && (
+            <div className={s.error}>Invalid password</div>
+          )}
+          <div className={s.requirements}>
+            * Password must be 8 characters or longer.
+          </div>
           <div className={s.formGroup}>
             <input
               className={s.input}
@@ -135,7 +146,9 @@ class Register extends React.Component {
               onChange={this.validateVerifyPassword}
             />
           </div>
-          {!this.state.validVerifyPassword && <div>Passwords must match</div>}
+          {!this.state.validVerifyPassword && (
+            <div className={s.error}>Passwords must match</div>
+          )}
           <div className={[s.buttonContainer, s.formGroup].join(' ')}>
             <button
               className={s.button}

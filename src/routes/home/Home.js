@@ -17,11 +17,24 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <div>
-            <Link className={s.button} to="/login">
-              LOG IN
-            </Link>
+          <div className={s.banner}>
+            <h1 className={s.bannerTitle}>DudeTruck</h1>
+            <p className={s.bannerDesc}>Leads you to a foodtruck</p>
           </div>
+          <div className={s.paragraph}>
+            DudeTruck is the premiere website for locating foodtrucks. Our
+            proprietary software allows you to find foodtrucks in your area and
+            filter them based on your dietary needs. Whether you are gluten-free
+            or vegan, DudeTruck can locate all accomadating foodtrucks in the
+            area.
+          </div>
+          <div className={s.paragraph}>
+            If you own a foodtruck and are trying to advertise, DudeTruck is the
+            perfect platform. DudeTruck allows you to assemble information about
+            your foodtruck and display it to the world. After logging into the
+            DudeTruck app, you can set your current location for anyone to see.
+          </div>
+          <div className={s.register}>Don&apos;t delay, sign up today!</div>
           <div>
             <Link className={s.button} to="/register">
               SIGN UP

@@ -42,3 +42,38 @@ h1 {
   background-color: var(--font-highlight-color);
   cursor: pointer;
 }
+
+.banner {
+  text-align: center;
+}
+
+.bannerTitle {
+  margin: 0;
+  padding: 20px 0 0;
+  font-weight: normal;
+  font-size: 3.5em;
+  line-height: 0.8em;
+}
+
+.bannerDesc {
+  padding: 0;
+  color: #111;
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.paragraph {
+  max-width: 500px;
+  padding: 5px;
+  color: #050505;
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+.register {
+  text-align: center;
+  padding: 5px;
+  color: black;
+  font-size: 24px;
+  margin: 5px auto;
+}

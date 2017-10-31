@@ -104,3 +104,7 @@
 .registration > a:hover {
   color: var(--font-highlight-color);
 }
+
+.error {
+  color: red;
+}
