@@ -1,18 +1,18 @@
 import UserSettingsType from '../types/UserSettingsType';
-import User from '../models/User';
+import UserSettings from '../models/UserSettings';
 
-const userSettings = {
+const settings = {
   type: UserSettingsType,
   resolve(root, args, { user }) {
     return (
       user &&
-      User.find({
+      UserSettings.findOne({
         where: {
-          id: user.id,
+          userId: user.id,
         },
       })
     );
   },
 };
 
-export default userSettings;
+export default settings;

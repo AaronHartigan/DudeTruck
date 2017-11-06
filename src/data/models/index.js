@@ -9,7 +9,8 @@
 
 import sequelize from '../sequelize';
 import User from './User';
-import Vendor from './Vendor';
+import UserSettings from './UserSettings';
+import VendorSettings from './VendorSettings';
 import Feedback from './Feedback';
 
 User.hasMany(Feedback, {
@@ -22,12 +23,20 @@ User.hasMany(Feedback, {
   onDelete: 'cascade',
 });
 
-Vendor.hasMany(Feedback, {
+UserSettings.belongsTo(User, {
+  foreignKey: {
+    allowNull: false,
+    name: 'userId',
+  },
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+VendorSettings.belongsTo(User, {
   foreignKey: {
     allowNull: false,
     name: 'vendorId',
   },
-  as: 'feedbacks',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
@@ -37,4 +46,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, Vendor, Feedback };
+export { User, UserSettings, VendorSettings, Feedback };

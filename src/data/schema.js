@@ -16,6 +16,7 @@ import me from './queries/me';
 import user from './queries/userSettings';
 import vendor from './queries/vendorSettings';
 import news from './queries/news';
+import updateUserSettings from './mutations/userSettings';
 
 const schema = new Schema({
   query: new ObjectType({
@@ -25,6 +26,12 @@ const schema = new Schema({
       user,
       vendor,
       news,
+    },
+  }),
+  mutation: new ObjectType({
+    name: 'Mutation',
+    fields: {
+      updateUserSettings,
     },
   }),
 });

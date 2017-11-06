@@ -38,7 +38,7 @@ const Feedback = Model.define(
     indexes: [
       {
         unique: true,
-        fields: ['vendorID', 'userID'],
+        fields: ['vendorId', 'userId'],
       },
     ],
   },

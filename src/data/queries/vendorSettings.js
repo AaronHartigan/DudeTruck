@@ -1,18 +1,18 @@
 import VendorSettingsType from '../types/VendorSettingsType';
-import Vendor from '../models/Vendor';
+import VendorSettings from '../models/VendorSettings';
 
-const vendorSettings = {
+const settings = {
   type: VendorSettingsType,
   resolve(root, args, { user }) {
     return (
       user &&
-      Vendor.find({
+      VendorSettings.findOne({
         where: {
-          id: user.id,
+          vendorId: user.id,
         },
       })
     );
   },
 };
 
-export default vendorSettings;
+export default settings;

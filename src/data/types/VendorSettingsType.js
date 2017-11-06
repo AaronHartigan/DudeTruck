@@ -1,7 +1,7 @@
 import {
   GraphQLObjectType as ObjectType,
   GraphQLID as ID,
-  GraphQLBoolean as Boolean,
+  GraphQLBoolean as BooleanType,
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
 } from 'graphql';
@@ -15,9 +15,9 @@ const VendorSettingsType = new ObjectType({
     phone: { type: StringType },
     schedule: { type: StringType },
     location: { type: StringType },
-    vegan: { type: Boolean },
-    vegetarian: { type: Boolean },
-    gluten_free: { type: Boolean },
+    vegan: { type: BooleanType },
+    vegetarian: { type: BooleanType },
+    glutenFree: { type: BooleanType },
   },
 });
 

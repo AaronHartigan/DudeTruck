@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import DataType from 'sequelize';
 import Model from '../sequelize';
+import UserSettings from './UserSettings';
+import VendorSettings from './VendorSettings';
 import { userTypes } from '../../constants';
 import { SALT_ROUNDS } from '../../config';
 
@@ -24,34 +26,9 @@ const User = Model.define(
       defaultValue: userTypes.user,
     },
 
-    name: {
-      type: DataType.STRING(255),
-      defaultValue: '',
-    },
-
-    age: {
-      type: DataType.INTEGER,
-      allowNull: true,
-    },
-
     password: {
       type: DataType.STRING,
       allowNull: false,
-    },
-
-    vegan: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
-    },
-
-    vegetarian: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
-    },
-
-    gluten_free: {
-      type: DataType.BOOLEAN,
-      defaultValue: false,
     },
   },
 
@@ -77,8 +54,22 @@ function hashPassword(instance, done) {
     .then(hash => instance.set('password', hash));
 }
 
+function createSettings(instance) {
+  if (instance.type === userTypes.user)
+    return UserSettings.create({
+      userId: instance.id,
+    });
+  else if (instance.type === userTypes.vendor) {
+    return VendorSettings.create({
+      vendorId: instance.id,
+    });
+  }
+  return null;
+}
+
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeCreate(lowerEmail);
+User.afterCreate(createSettings);
 
 export default User;

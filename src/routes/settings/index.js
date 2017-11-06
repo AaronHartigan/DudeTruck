@@ -27,15 +27,40 @@ async function action({ store, fetch }) {
 
   let page;
   if (data.me.type === userTypes.vendor) {
+    const settingsResp = await fetch('/graphql', {
+      body: JSON.stringify({
+        query:
+          '{vendor{logo,companyName,phone,schedule,location,vegan,vegetarian,glutenFree}}',
+      }),
+    });
+
+    const settingsData = await settingsResp.json();
+
+    if (!settingsData || !settingsData.data) {
+      throw new Error('Unable to fetch account data');
+    }
+
     page = (
       <Layout isLoggedIn={isLoggedIn(user)}>
-        <SettingsVendor />
+        <SettingsVendor settings={settingsData.data.vendor} />
       </Layout>
     );
   } else if (data.me.type === userTypes.user) {
+    const settingsResp = await fetch('/graphql', {
+      body: JSON.stringify({
+        query: '{user{name,age,vegan,vegetarian,glutenFree}}',
+      }),
+    });
+
+    const settingsData = await settingsResp.json();
+
+    if (!settingsData || !settingsData.data) {
+      throw new Error('Unable to fetch account data');
+    }
+
     page = (
       <Layout isLoggedIn={isLoggedIn(user)}>
-        <SettingsUser />
+        <SettingsUser settings={settingsData.data.user} />
       </Layout>
     );
   } else {

@@ -26,7 +26,7 @@ import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import createFetch from './createFetch';
 import router from './router';
-import models, { User, Vendor } from './data/models';
+import models, { User } from './data/models';
 import schema from './data/schema';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
@@ -100,22 +100,18 @@ app.post('/login', async (req, res) => {
   const errors = [];
 
   try {
-    let user;
-    user = await User.findOne({
+    const user = await User.findOne({
       where: {
         email,
       },
     });
-    if (!user) {
-      user = await Vendor.findOne({
-        where: {
-          email,
-        },
-      });
-    }
 
-    if (!user || !user.validPassword(password)) {
-      errors.push('Invalid email or password');
+    if (!user) {
+      errors.push('Email does not exist.');
+      return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
+    }
+    if (!user.validPassword(password)) {
+      errors.push('Incorrect email or password');
       return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
     }
 
@@ -157,18 +153,11 @@ app.post('/register', async (req, res) => {
   }
   if (errors.length === 0) {
     try {
-      let user = null;
-      if (type === 'user') {
-        user = await User.create({
-          email,
-          password,
-        });
-      } else if (type === 'vendor') {
-        user = await Vendor.create({
-          email,
-          password,
-        });
-      }
+      const user = await User.create({
+        email,
+        password,
+        type,
+      });
 
       if (!user) {
         errors.push('Unable to connect to database');
