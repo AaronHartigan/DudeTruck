@@ -14,3 +14,14 @@
 h1 {
   text-align: center;
 }
+
+.show {
+  opacity: 1;
+}
+
+.hide {
+  transition: 500ms all ease;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+}
