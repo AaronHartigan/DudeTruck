@@ -146,6 +146,28 @@ class User extends React.Component {
                 />
               </label>
             </div>
+            <div>
+              <label htmlFor="name">
+                Name:
+                <input
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="age">
+                Age:
+                <input
+                  type="number"
+                  name="age"
+                  value={this.state.age}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
             <input type="submit" value="Save" />
             {this.state.isLoading && <span>Saving...</span>}
             {!this.state.isLoading && (
