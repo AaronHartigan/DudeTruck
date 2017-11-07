@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import GoogleMapReact from 'google-map-react';
 import s from './Search.css';
 
 class Search extends React.Component {
@@ -33,12 +34,22 @@ class Search extends React.Component {
   }
 
   render() {
+    const GoogleMapsConfig = {
+      key: 'AIzaSyBITkFzK9gnYvlgnXe0pH1ixHACInErAVI',
+    };
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1>
             lat: {this.state.lat}, long:{this.state.long}
           </h1>
+          <div className={s.mapBox}>
+            <GoogleMapReact
+              bootstrapURLKeys={GoogleMapsConfig}
+              center={{ lat: 38, lng: -121 }}
+              defaultZoom={11}
+            />
+          </div>
         </div>
       </div>
     );
