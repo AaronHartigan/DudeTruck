@@ -30,7 +30,7 @@ async function action({ store, fetch }) {
     const settingsResp = await fetch('/graphql', {
       body: JSON.stringify({
         query:
-          '{vendor{logo,companyName,phone,schedule,location,vegan,vegetarian,glutenFree}}',
+          '{vendor{logo,companyName,phone,schedule,lat,long,vegan,vegetarian,glutenFree}}',
       }),
     });
 

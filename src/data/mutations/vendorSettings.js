@@ -1,6 +1,7 @@
 import {
   GraphQLString as StringType,
   GraphQLBoolean as BooleanType,
+  GraphQLFloat as FloatType,
 } from 'graphql';
 import VendorSettingsType from '../types/VendorSettingsType';
 import VendorSettings from '../models/VendorSettings';
@@ -12,7 +13,8 @@ const updateVendorSettings = {
     companyName: { type: StringType },
     phone: { type: StringType },
     schedule: { type: StringType },
-    location: { type: StringType },
+    lat: { type: FloatType },
+    long: { type: FloatType },
     vegetarian: { type: BooleanType },
     vegan: { type: BooleanType },
     glutenFree: { type: BooleanType },
@@ -26,7 +28,8 @@ const updateVendorSettings = {
           companyName: args.companyName,
           phone: args.phone,
           schedule: args.schedule,
-          location: args.location,
+          lat: args.lat,
+          long: args.long,
           vegetarian: args.vegetarian,
           vegan: args.vegan,
           glutenFree: args.glutenFree,

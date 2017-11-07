@@ -14,7 +14,8 @@ class Vendor extends React.Component {
       companyName: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       schedule: PropTypes.string.isRequired,
-      location: PropTypes.string.isRequired,
+      lat: PropTypes.number.isRequired,
+      long: PropTypes.number.isRequired,
       vegan: PropTypes.bool.isRequired,
       vegetarian: PropTypes.bool.isRequired,
       glutenFree: PropTypes.bool.isRequired,
@@ -27,7 +28,8 @@ class Vendor extends React.Component {
       companyName: '',
       phone: '',
       schedule: '',
-      location: '',
+      lat: 0,
+      long: 0,
       vegan: false,
       vegetarian: false,
       glutenFree: false,
@@ -42,7 +44,8 @@ class Vendor extends React.Component {
       companyName: this.props.settings.companyName,
       phone: this.props.settings.phone,
       schedule: this.props.settings.schedule,
-      location: this.props.settings.location,
+      lat: this.props.settings.lat,
+      long: this.props.settings.long,
       vegan: this.props.settings.vegan,
       vegetarian: this.props.settings.vegetarian,
       glutenFree: this.props.settings.glutenFree,
@@ -53,6 +56,62 @@ class Vendor extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.showLoading = this.showLoading.bind(this);
     this.hideLoading = this.hideLoading.bind(this);
+    this.handleLocation = this.handleLocation.bind(this);
+    this.getGPS = this.getGPS.bind(this);
+    this.handleCoords = this.handleCoords.bind(this);
+  }
+
+  getGPS() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.handleCoords);
+    }
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+
+    this.showLoading();
+
+    await this.context.fetch('/graphql', {
+      body: JSON.stringify({
+        query: `mutation updateVendorSettings($logo: String!, $companyName: String!, $phone: String!, $schedule: String!, $lat: Float!, $long: Float, $vegan: Boolean!, $vegetarian: Boolean!, $glutenFree: Boolean!) {
+          updateVendorSettings(logo: $logo, companyName: $companyName, phone: $phone, schedule: $schedule, lat: $lat, long: $long vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
+            logo,
+            companyName,
+            phone,
+            schedule,
+            lat,
+            long,
+            vegan,
+            vegetarian,
+            glutenFree,
+          }
+        }`,
+        variables: {
+          logo: this.state.logo,
+          companyName: this.state.companyName,
+          phone: this.state.phone,
+          schedule: this.state.schedule,
+          lat: this.state.lat,
+          long: this.state.long,
+          vegan: this.state.vegan,
+          vegetarian: this.state.vegetarian,
+          glutenFree: this.state.glutenFree,
+        },
+      }),
+    });
+
+    this.hideLoading();
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value,
+    });
   }
 
   showLoading() {
@@ -75,49 +134,16 @@ class Vendor extends React.Component {
     }, 1250);
   }
 
-  handleChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
+  handleCoords(pos) {
     this.setState({
-      [name]: value,
+      lat: pos.coords.latitude,
+      long: pos.coords.longitude,
     });
   }
 
-  async handleSubmit(event) {
+  handleLocation(event) {
     event.preventDefault();
-
-    this.showLoading();
-
-    await this.context.fetch('/graphql', {
-      body: JSON.stringify({
-        query: `mutation updateVendorSettings($logo: String!, $companyName: String!, $phone: String!, $schedule: String!, $location: String!, $vegan: Boolean!, $vegetarian: Boolean!, $glutenFree: Boolean!) {
-          updateVendorSettings(logo: $logo, companyName: $companyName, phone: $phone, schedule: $schedule, location: $location, vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
-            logo,
-            companyName,
-            phone,
-            schedule,
-            location,
-            vegan,
-            vegetarian,
-            glutenFree,
-          }
-        }`,
-        variables: {
-          logo: this.state.logo,
-          companyName: this.state.companyName,
-          phone: this.state.phone,
-          schedule: this.state.schedule,
-          location: this.state.location,
-          vegan: this.state.vegan,
-          vegetarian: this.state.vegetarian,
-          glutenFree: this.state.glutenFree,
-        },
-      }),
-    });
-
-    this.hideLoading();
+    this.getGPS();
   }
 
   render() {
@@ -193,7 +219,14 @@ class Vendor extends React.Component {
                 />
               </label>
             </div>
-            <div>ADD LOCATION SETTER HERE</div>
+            <div>
+              Lat: {this.state.lat} Long: {this.state.long}
+            </div>
+            <div>
+              <button onClick={this.handleLocation} type="button">
+                Set Location
+              </button>
+            </div>
             <input type="submit" value="Save" />
             {this.state.isLoading && <span>Saving...</span>}
             {!this.state.isLoading && (

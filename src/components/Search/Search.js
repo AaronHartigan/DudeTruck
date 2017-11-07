@@ -37,6 +37,7 @@ class Search extends React.Component {
     const GoogleMapsConfig = {
       key: 'AIzaSyBITkFzK9gnYvlgnXe0pH1ixHACInErAVI',
     };
+    const location = { lat: this.state.lat, lng: this.state.long };
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -46,8 +47,8 @@ class Search extends React.Component {
           <div className={s.mapBox}>
             <GoogleMapReact
               bootstrapURLKeys={GoogleMapsConfig}
-              center={{ lat: 38, lng: -121 }}
-              defaultZoom={11}
+              center={location}
+              defaultZoom={15}
             />
           </div>
         </div>

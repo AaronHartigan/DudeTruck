@@ -10,22 +10,32 @@ const VendorSettings = Model.define('VendorSettings', {
 
   logo: {
     type: DataType.STRING(255),
+    defaultValue: '',
   },
 
   companyName: {
     type: DataType.STRING(50),
+    defaultValue: '',
   },
 
   phone: {
     type: DataType.STRING(12),
+    defaultValue: '',
   },
 
   schedule: {
     type: DataType.STRING(255),
+    defaultValue: '',
   },
 
-  location: {
-    type: DataType.STRING(12),
+  lat: {
+    type: DataType.FLOAT,
+    defaultValue: 0,
+  },
+
+  long: {
+    type: DataType.FLOAT,
+    defaultValue: 0,
   },
 
   vegan: {
