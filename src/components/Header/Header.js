@@ -15,6 +15,13 @@ import Link from '../Link';
 import Navigation from '../Navigation';
 import logoUrl from './logo-small.png';
 import logoUrl2x from './logo-small@2x.png';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import {cyanA200} from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 class Header extends React.Component {
   static propTypes = {
@@ -22,22 +29,45 @@ class Header extends React.Component {
   };
 
   render() {
-    return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <Navigation isLoggedIn={this.props.isLoggedIn} />
-          <Link className={s.brand} to="/">
-            <img
-              src={logoUrl}
-              srcSet={`${logoUrl2x} 2x`}
-              width="38"
-              height="38"
-              alt="React"
-            />
-            <span className={s.brandTxt}>DudeTruck</span>
-          </Link>
-        </div>
+    return this.props.isLoggedIn ? (
+      <div>
+        <MuiThemeProvider>
+          <AppBar
+            style={{backgroundColor: cyanA200}}
+            iconElementRight = {
+              <RaisedButton
+                containerElement={<Navigation isLoggedIn={this.props.isLoggedIn} />}
+              />
+            }
+            iconElementLeft = {
+              <RaisedButton
+                label="search"
+                containerElement={<Link to="/search" />}
+              />
+            }
+          />
+        </MuiThemeProvider>
       </div>
+      ) : (
+        <div>
+          <MuiThemeProvider>
+            <AppBar
+              style={{backgroundColor: cyanA200}}
+              iconElementRight = {
+                <RaisedButton
+                  containerElement={<Navigation isLoggedIn={this.props.isLoggedIn} />}
+                />
+              }
+              iconElementLeft = {
+                <IconButton
+                  containerElement={<Link to="/" />}
+                  linkButton={true}>
+                  <ActionHome />
+                </IconButton>
+              }
+            />
+          </MuiThemeProvider>
+        </div>
     );
   }
 }
