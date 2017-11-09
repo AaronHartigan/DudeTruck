@@ -85,7 +85,7 @@ app.use((err, req, res, next) => {
 
 app.get('/logout', (req, res) => {
   res.clearCookie('id_token');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 if (__DEV__) {
@@ -93,7 +93,7 @@ if (__DEV__) {
 }
 
 app.post('/login', async (req, res) => {
-  const email = req.body.email.toLowerCase().trim();
+  const email = req.body.email.toLowerCase();
   const password = req.body.password;
   const failureUrl = `/login?email=${email}`;
   const successUrl = '/search';
