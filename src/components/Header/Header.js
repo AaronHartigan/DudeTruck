@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import { cyanA200 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
@@ -30,7 +29,7 @@ class Header extends React.Component {
       <div className={s.root}>
         <MuiThemeProvider>
           <AppBar
-            style={{ backgroundColor: cyanA200 }}
+            style={{ backgroundColor: '#455A64' }}
             iconElementRight={
               <RaisedButton
                 containerElement={
@@ -51,7 +50,7 @@ class Header extends React.Component {
       <div className={s.root}>
         <MuiThemeProvider>
           <AppBar
-            style={{ backgroundColor: cyanA200 }}
+            style={{ backgroundColor: '#455A64' }}
             iconElementRight={
               <RaisedButton
                 containerElement={

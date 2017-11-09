@@ -26,6 +26,10 @@ class Navigation extends React.Component {
         <MuiThemeProvider>
           <div>
             <RaisedButton
+              label="search"
+              containerElement={<Link to="/search" />}
+            />
+            <RaisedButton
               label="settings"
               containerElement={<Link to="/settings" />}
             />
@@ -40,6 +44,8 @@ class Navigation extends React.Component {
       <div role="navigation">
         <MuiThemeProvider>
           <div>
+            <RaisedButton label="help" containerElement={<Link to="/help" />} />
+            <span className={s.spacer} />
             <RaisedButton
               label="login"
               containerElement={<Link to="/login" />}
