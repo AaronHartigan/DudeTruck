@@ -10,18 +10,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Header.css';
-import Link from '../Link';
-import Navigation from '../Navigation';
-import logoUrl from './logo-small.png';
-import logoUrl2x from './logo-small@2x.png';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
-import {cyanA200} from 'material-ui/styles/colors';
+import { cyanA200 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import s from './Header.css';
+import Link from '../Link';
+import Navigation from '../Navigation';
 
 class Header extends React.Component {
   static propTypes = {
@@ -30,16 +27,18 @@ class Header extends React.Component {
 
   render() {
     return this.props.isLoggedIn ? (
-      <div>
+      <div className={s.root}>
         <MuiThemeProvider>
           <AppBar
-            style={{backgroundColor: cyanA200}}
-            iconElementRight = {
+            style={{ backgroundColor: cyanA200 }}
+            iconElementRight={
               <RaisedButton
-                containerElement={<Navigation isLoggedIn={this.props.isLoggedIn} />}
+                containerElement={
+                  <Navigation isLoggedIn={this.props.isLoggedIn} />
+                }
               />
             }
-            iconElementLeft = {
+            iconElementLeft={
               <RaisedButton
                 label="search"
                 containerElement={<Link to="/search" />}
@@ -48,26 +47,26 @@ class Header extends React.Component {
           />
         </MuiThemeProvider>
       </div>
-      ) : (
-        <div>
-          <MuiThemeProvider>
-            <AppBar
-              style={{backgroundColor: cyanA200}}
-              iconElementRight = {
-                <RaisedButton
-                  containerElement={<Navigation isLoggedIn={this.props.isLoggedIn} />}
-                />
-              }
-              iconElementLeft = {
-                <IconButton
-                  containerElement={<Link to="/" />}
-                  linkButton={true}>
-                  <ActionHome />
-                </IconButton>
-              }
-            />
-          </MuiThemeProvider>
-        </div>
+    ) : (
+      <div className={s.root}>
+        <MuiThemeProvider>
+          <AppBar
+            style={{ backgroundColor: cyanA200 }}
+            iconElementRight={
+              <RaisedButton
+                containerElement={
+                  <Navigation isLoggedIn={this.props.isLoggedIn} />
+                }
+              />
+            }
+            iconElementLeft={
+              <IconButton containerElement={<Link to="/" />} linkButton>
+                <ActionHome />
+              </IconButton>
+            }
+          />
+        </MuiThemeProvider>
+      </div>
     );
   }
 }

@@ -9,14 +9,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import s from './Navigation.css';
 import Link from '../Link';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
 
 class Navigation extends React.Component {
   static propTypes = {
@@ -47,6 +44,7 @@ class Navigation extends React.Component {
               label="login"
               containerElement={<Link to="/login" />}
             />
+            <span className={s.spacer} />
             <RaisedButton
               label="register"
               containerElement={<Link to="/register" />}
