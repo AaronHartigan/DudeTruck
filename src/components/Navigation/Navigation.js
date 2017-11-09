@@ -13,6 +13,10 @@ import cx from 'classnames';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Navigation.css';
 import Link from '../Link';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Navigation extends React.Component {
   static propTypes = {
@@ -21,32 +25,34 @@ class Navigation extends React.Component {
 
   render() {
     return this.props.isLoggedIn ? (
-      <div className={s.root} role="navigation">
-        <Link className={s.link} to="/search">
-          Search
-        </Link>
-        <span className={s.spacer}>or</span>
-        <Link className={cx(s.link, s.highlight)} to="/settings">
-          Settings
-        </Link>
-        <span className={s.spacer}>|</span>
-        <Link className={s.link} to="/logout">
-          Logout
-        </Link>
+      <div role="navigation">
+        <MuiThemeProvider>
+          <div>
+            <RaisedButton
+              label="settings"
+              containerElement={<Link to="/settings" />}
+            />
+            <RaisedButton
+              label="logout"
+              containerElement={<Link to="/logout" />}
+            />
+          </div>
+        </MuiThemeProvider>
       </div>
     ) : (
-      <div className={s.root} role="navigation">
-        <Link className={s.link} to="/help">
-          Help
-        </Link>
-        <span className={s.spacer}>|</span>
-        <Link className={s.link} to="/login">
-          Login
-        </Link>
-        <span className={s.spacer}>or</span>
-        <Link className={cx(s.link, s.highlight)} to="/register">
-          Sign Up
-        </Link>
+      <div role="navigation">
+        <MuiThemeProvider>
+          <div>
+            <RaisedButton
+              label="login"
+              containerElement={<Link to="/login" />}
+            />
+            <RaisedButton
+              label="register"
+              containerElement={<Link to="/register" />}
+            />
+          </div>
+        </MuiThemeProvider>
       </div>
     );
   }
