@@ -32,6 +32,7 @@ class Header extends React.Component {
             style={{ backgroundColor: '#455A64' }}
             iconElementRight={
               <RaisedButton
+                label="nav"
                 containerElement={
                   <Navigation isLoggedIn={this.props.isLoggedIn} />
                 }
@@ -40,7 +41,11 @@ class Header extends React.Component {
             iconElementLeft={
               <RaisedButton
                 label="search"
-                containerElement={<Link to="/search" />}
+                containerElement={
+                  <Link to="/search">
+                    <div />
+                  </Link>
+                }
               />
             }
           />
@@ -53,13 +58,20 @@ class Header extends React.Component {
             style={{ backgroundColor: '#455A64' }}
             iconElementRight={
               <RaisedButton
+                label={'Nav'}
                 containerElement={
                   <Navigation isLoggedIn={this.props.isLoggedIn} />
                 }
               />
             }
             iconElementLeft={
-              <IconButton containerElement={<Link to="/" />} linkButton>
+              <IconButton
+                containerElement={
+                  <Link to="/">
+                    <div />
+                  </Link>
+                }
+              >
                 <ActionHome />
               </IconButton>
             }

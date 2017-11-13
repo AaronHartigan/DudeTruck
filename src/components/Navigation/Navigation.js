@@ -44,16 +44,31 @@ class Navigation extends React.Component {
       <div role="navigation">
         <MuiThemeProvider>
           <div>
-            <RaisedButton label="help" containerElement={<Link to="/help" />} />
+            <RaisedButton
+              label="help"
+              containerElement={
+                <Link to="/help">
+                  <div />
+                </Link>
+              }
+            />
             <span className={s.spacer} />
             <RaisedButton
               label="login"
-              containerElement={<Link to="/login" />}
+              containerElement={
+                <Link to="/login">
+                  <div />
+                </Link>
+              }
             />
             <span className={s.spacer} />
             <RaisedButton
               label="register"
-              containerElement={<Link to="/register" />}
+              containerElement={
+                <Link to="/register">
+                  <div />
+                </Link>
+              }
             />
           </div>
         </MuiThemeProvider>

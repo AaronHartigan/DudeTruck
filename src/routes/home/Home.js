@@ -130,7 +130,7 @@ class Home extends React.Component {
           <MuiThemeProvider>
             <GridList style={styles.gridList}>
               {tilesData.map(tile => (
-                <GridTile>
+                <GridTile key={tile.img}>
                   <img src={tile.img} alt="" />
                 </GridTile>
               ))}
