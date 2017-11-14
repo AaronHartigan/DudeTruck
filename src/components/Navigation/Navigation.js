@@ -27,15 +27,27 @@ class Navigation extends React.Component {
           <div>
             <RaisedButton
               label="search"
-              containerElement={<Link to="/search" />}
+              containerElement={
+                <Link to="/search">
+                  <div />
+                </Link>
+              }
             />
             <RaisedButton
               label="settings"
-              containerElement={<Link to="/settings" />}
+              containerElement={
+                <Link to="/settings">
+                  <div />
+                </Link>
+              }
             />
             <RaisedButton
               label="logout"
-              containerElement={<Link to="/logout" />}
+              containerElement={
+                <Link to="/logout">
+                  <div />
+                </Link>
+              }
             />
           </div>
         </MuiThemeProvider>

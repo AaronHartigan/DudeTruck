@@ -44,13 +44,15 @@ class Search extends React.Component {
           <h1>
             lat: {this.state.lat}, long:{this.state.long}
           </h1>
-          <div className={s.mapBox}>
-            <GoogleMapReact
-              bootstrapURLKeys={GoogleMapsConfig}
-              center={location}
-              defaultZoom={15}
-            />
-          </div>
+          {this.state.lat && this.state.long ? (
+            <div className={s.mapBox}>
+              <GoogleMapReact
+                bootstrapURLKeys={GoogleMapsConfig}
+                center={location}
+                defaultZoom={15}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     );
