@@ -9,8 +9,6 @@
 
 import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { GridList, GridTile } from 'material-ui/GridList';
 import Link from '../../components/Link';
 import s from './Home.css';
 import png1 from './bacon_mania_sm.png';
@@ -29,20 +27,6 @@ import png13 from './Costas_Finest_sm.png';
 import png14 from './cowtown-creamery-logo-sm.png';
 import png15 from './Drewskis_sm.png';
 import png16 from './Gameday_Grill_sm.png';
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    overflowX: 'auto',
-    margin: '0',
-  },
-};
 
 const tilesData = [
   {
@@ -95,10 +79,6 @@ const tilesData = [
   },
 ];
 
-/**
- * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
- */
-
 class Home extends React.Component {
   render() {
     return (
@@ -126,16 +106,12 @@ class Home extends React.Component {
             SIGN UP
           </Link>
         </div>
-        <div style={styles.root}>
-          <MuiThemeProvider>
-            <GridList style={styles.gridList}>
-              {tilesData.map(tile => (
-                <GridTile key={tile.img}>
-                  <img src={tile.img} alt="" />
-                </GridTile>
-              ))}
-            </GridList>
-          </MuiThemeProvider>
+        <div className={s.slider}>
+          {tilesData.map(tile => (
+            <div className={s.grid} key={tile.img}>
+              <img src={tile.img} alt="" />
+            </div>
+          ))}
         </div>
       </div>
     );

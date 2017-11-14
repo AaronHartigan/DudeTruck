@@ -10,14 +10,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
+import logoUrl from './logo-small.png';
+import logoUrl2x from './logo-small@2x.png';
 
 class Header extends React.Component {
   static propTypes = {
@@ -25,58 +22,21 @@ class Header extends React.Component {
   };
 
   render() {
-    return this.props.isLoggedIn ? (
+    return (
       <div className={s.root}>
-        <MuiThemeProvider>
-          <AppBar
-            style={{ backgroundColor: '#455A64' }}
-            iconElementRight={
-              <RaisedButton
-                label="nav"
-                containerElement={
-                  <Navigation isLoggedIn={this.props.isLoggedIn} />
-                }
-              />
-            }
-            iconElementLeft={
-              <RaisedButton
-                label="search"
-                containerElement={
-                  <Link to="/search">
-                    <div />
-                  </Link>
-                }
-              />
-            }
-          />
-        </MuiThemeProvider>
-      </div>
-    ) : (
-      <div className={s.root}>
-        <MuiThemeProvider>
-          <AppBar
-            style={{ backgroundColor: '#455A64' }}
-            iconElementRight={
-              <RaisedButton
-                label={'Nav'}
-                containerElement={
-                  <Navigation isLoggedIn={this.props.isLoggedIn} />
-                }
-              />
-            }
-            iconElementLeft={
-              <IconButton
-                containerElement={
-                  <Link to="/">
-                    <div />
-                  </Link>
-                }
-              >
-                <ActionHome />
-              </IconButton>
-            }
-          />
-        </MuiThemeProvider>
+        <div className={s.container}>
+          <Navigation isLoggedIn={this.props.isLoggedIn} />
+          <Link className={s.brand} to="/">
+            <img
+              src={logoUrl}
+              srcSet={`${logoUrl2x} 2x`}
+              width="38"
+              height="38"
+              alt="React"
+            />
+            <span className={s.brandTxt}>DudeTruck</span>
+          </Link>
+        </div>
       </div>
     );
   }
