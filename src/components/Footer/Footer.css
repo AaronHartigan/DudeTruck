@@ -1,13 +1,8 @@
 @import '../variables.css';
 
 .root {
-  height: var(--footer-height);
   background: #333;
   color: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .container {
@@ -15,13 +10,6 @@
   padding: 20px 15px;
   max-width: var(--max-content-width);
   text-align: center;
-}
-
-.phantom {
-  display: block;
-  padding: 20px 15px;
-  height: var(--footer-height);
-  width: 100%;
 }
 
 .text {

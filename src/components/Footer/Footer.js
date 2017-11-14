@@ -7,7 +7,6 @@ class Footer extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.phantom} />
         <div className={s.container}>
           <span className={s.text}>© DudeTruck</span>
           <span className={s.spacer}>·</span>
