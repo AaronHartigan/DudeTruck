@@ -41,7 +41,6 @@ exports[`Layout renders children correctly 1`] = `
         <a
           disabled={false}
           href="/"
-          linkButton={true}
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
