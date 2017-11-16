@@ -10,6 +10,17 @@ const Feedback = Model.define(
       primaryKey: true,
     },
 
+    // reviewerId: {
+    //   type: DataType.UUID,
+    //   defaultValue: DataType.UUIDV1,
+    //   allowNull: false,
+    // }
+    // revieweeId: {
+    //   type: DataType.UUID,
+    //   defaultValue: DataType.UUIDV1,
+    //   allowNull: false,
+    // }
+
     stars5Count: {
       type: DataType.INTEGER,
     },
@@ -38,7 +49,7 @@ const Feedback = Model.define(
     indexes: [
       {
         unique: true,
-        fields: ['vendorId', 'userId'],
+        fields: ['reviewerId', 'revieweeId'],
       },
     ],
   },

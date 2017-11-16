@@ -16,9 +16,19 @@ import Feedback from './Feedback';
 User.hasMany(Feedback, {
   foreignKey: {
     allowNull: false,
-    name: 'userId',
+    name: 'reviewerId',
   },
-  as: 'feedbacks',
+  as: 'feedbacksGiver',
+  onUpdate: 'cascade',
+  onDelete: 'cascade',
+});
+
+User.hasMany(Feedback, {
+  foreignKey: {
+    allowNull: false,
+    name: 'revieweeId',
+  },
+  as: 'feedbackReceiver',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });

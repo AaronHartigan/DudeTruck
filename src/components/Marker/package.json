@@ -1,0 +1,6 @@
+{
+  "name": "Marker",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Marker.js"
+}

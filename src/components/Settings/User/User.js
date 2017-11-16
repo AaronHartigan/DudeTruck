@@ -84,15 +84,17 @@ class User extends React.Component {
 
     await this.context.fetch('/graphql', {
       body: JSON.stringify({
-        query: `mutation updateUserSettings($name: String!, $age: Int!, $vegan: Boolean!, $vegetarian: Boolean!, $glutenFree: Boolean!) {
-          updateUserSettings(name: $name, age: $age, vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
-            name,
-            age,
-            vegan,
-            vegetarian,
-            glutenFree,
+        query: `
+          mutation updateUserSettings($name: String, $age: Int, $vegan: Boolean, $vegetarian: Boolean, $glutenFree: Boolean) {
+            updateUserSettings(name: $name, age: $age, vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
+              name,
+              age,
+              vegan,
+              vegetarian,
+              glutenFree,
+            }
           }
-        }`,
+        `,
         variables: {
           name: this.state.name,
           age: this.state.age,

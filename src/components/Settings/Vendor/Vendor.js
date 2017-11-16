@@ -74,19 +74,21 @@ class Vendor extends React.Component {
 
     await this.context.fetch('/graphql', {
       body: JSON.stringify({
-        query: `mutation updateVendorSettings($logo: String!, $companyName: String!, $phone: String!, $schedule: String!, $lat: Float!, $long: Float, $vegan: Boolean!, $vegetarian: Boolean!, $glutenFree: Boolean!) {
-          updateVendorSettings(logo: $logo, companyName: $companyName, phone: $phone, schedule: $schedule, lat: $lat, long: $long vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
-            logo,
-            companyName,
-            phone,
-            schedule,
-            lat,
-            long,
-            vegan,
-            vegetarian,
-            glutenFree,
+        query: `
+          mutation updateVendorSettings($logo: String, $companyName: String, $phone: String, $schedule: String, $lat: Float, $long: Float, $vegan: Boolean, $vegetarian: Boolean, $glutenFree: Boolean) {
+            updateVendorSettings(logo: $logo, companyName: $companyName, phone: $phone, schedule: $schedule, lat: $lat, long: $long vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
+              logo,
+              companyName,
+              phone,
+              schedule,
+              lat,
+              long,
+              vegan,
+              vegetarian,
+              glutenFree,
+            }
           }
-        }`,
+        `,
         variables: {
           logo: this.state.logo,
           companyName: this.state.companyName,
