@@ -55,7 +55,7 @@ class Vendor extends React.Component {
           <div>Vegan: {hasFoodInEnglish(this.props.truck.vegan)}</div>
           <div>Vegetarian: {hasFoodInEnglish(this.props.truck.vegetarian)}</div>
           <div>
-            Gluten Free: {this.hasFoodInEnglish(this.props.truck.glutenFree)}
+            Gluten Free: {hasFoodInEnglish(this.props.truck.glutenFree)}
           </div>
         </div>
       </div>
