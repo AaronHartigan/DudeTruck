@@ -16,6 +16,7 @@ import me from './queries/me';
 import user from './queries/userSettings';
 import vendor from './queries/vendorSettings';
 import news from './queries/news';
+import truck from './queries/truck';
 import trucks from './queries/trucks';
 import updateUserSettings from './mutations/userSettings';
 import updateVendorSettings from './mutations/vendorSettings';
@@ -28,6 +29,7 @@ const schema = new Schema({
       user,
       vendor,
       news,
+      truck,
       trucks,
     },
   }),

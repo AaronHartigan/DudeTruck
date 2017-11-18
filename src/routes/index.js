@@ -52,7 +52,7 @@ const routes = {
       load: () => import(/* webpackChunkName: 'settings' */ './settings'),
     },
     {
-      path: '/vendor',
+      path: '/vendor/:id?',
       load: () => import(/* webpackChunkName: 'vendorPage' */ './vendor'),
     },
 
