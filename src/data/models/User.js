@@ -70,6 +70,7 @@ function createSettings(instance) {
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);
 User.beforeCreate(lowerEmail);
+User.beforeUpdate(lowerEmail);
 User.afterCreate(createSettings);
 
 export default User;
