@@ -3,167 +3,132 @@ import UserSettings from './models/UserSettings';
 import VendorSettings from './models/VendorSettings';
 import { userTypes } from '../constants';
 
-const seed = async function seed() {
-  const user1Email = 'user1@gmail.com';
-  await User.bulkCreate(
-    [
-      {
-        email: user1Email,
-        password: 'testtest',
-        type: userTypes.user,
-      },
-    ],
-    {
-      individualHooks: true,
-      ignoreDuplicates: true,
-      // logging: false,
-    },
-  );
-  const user1 = await User.findOne({
+async function createUser(email, options) {
+  await User.findCreateFind({
     where: {
-      email: user1Email,
+      email,
     },
-    // logging: false,
+    defaults: {
+      password: options.password,
+      type: userTypes.user,
+    },
+  });
+
+  const user = await User.findOne({
+    where: {
+      email,
+    },
   });
 
   await UserSettings.update(
     {
-      name: 'Leeroy Jenkins',
-      age: 21,
-      vegan: false,
-      vegetarian: false,
-      glutenFree: true,
+      name: options.name,
+      age: options.age,
+      vegan: options.vegan,
+      vegetarian: options.vegetarian,
+      glutenFree: options.glutenFree,
     },
     {
       where: {
-        userId: user1.id,
+        userId: user.id,
       },
-      // logging: false,
     },
   );
+}
 
-  const vendor1Email = 'vendor1@gmail.com';
-  await User.bulkCreate(
-    [
-      {
-        email: vendor1Email,
-        password: 'testtest',
-        type: userTypes.vendor,
-      },
-    ],
-    {
-      individualHooks: true,
-      ignoreDuplicates: true,
-      // logging: false,
-    },
-  );
-  const vendor1 = await User.findOne({
+async function createVendor(email, options) {
+  await User.findCreateFind({
     where: {
-      email: vendor1Email,
+      email,
     },
-    // logging: false,
+    defaults: {
+      password: options.password,
+      type: userTypes.vendor,
+    },
+  });
+
+  const vendor = await User.findOne({
+    where: {
+      email,
+    },
   });
 
   await VendorSettings.update(
     {
-      companyName: 'Toxic Tacos',
-      phone: '(916) 123-4567',
-      schedule: 'MWF 1pm-6pm',
-      lat: 38.56,
-      long: -121.426,
-      vegan: false,
-      vegetarian: true,
-      glutenFree: true,
+      companyName: options.companyName,
+      phone: options.phone,
+      schedule: options.schedule,
+      lat: options.lat,
+      long: options.long,
+      vegan: options.vegan,
+      vegetarian: options.vegetarian,
+      glutenFree: options.glutenFree,
     },
     {
       where: {
-        vendorId: vendor1.id,
+        vendorId: vendor.id,
       },
-      // logging: false,
     },
   );
+}
 
-  const vendor2Email = 'vendor2@gmail.com';
-  await User.bulkCreate(
-    [
-      {
-        email: vendor2Email,
-        password: 'testtest',
-        type: userTypes.vendor,
-      },
-    ],
-    {
-      individualHooks: true,
-      ignoreDuplicates: true,
-      // logging: false,
-    },
-  );
-  const vendor2 = await User.findOne({
-    where: {
-      email: vendor2Email,
-    },
-    // logging: false,
+const seed = async function seed() {
+  createUser('user1@gmail.com', {
+    password: 'testtest',
+    name: 'Leeroy Jenkins',
+    age: 21,
+    vegan: false,
+    vegetarian: false,
+    glutenFree: true,
   });
 
-  await VendorSettings.update(
-    {
-      companyName: 'StarTruck',
-      phone: '(916) 123-4567',
-      schedule: 'Sat Sun 5pm-9pm',
-      lat: 38.562,
-      long: -121.429,
-      vegan: true,
-      vegetarian: true,
-      glutenFree: true,
-    },
-    {
-      where: {
-        vendorId: vendor2.id,
-      },
-      // logging: false,
-    },
-  );
-
-  const vendor3Email = 'vendor3@gmail.com';
-  await User.bulkCreate(
-    [
-      {
-        email: vendor3Email,
-        password: 'testtest',
-        type: userTypes.vendor,
-      },
-    ],
-    {
-      individualHooks: true,
-      ignoreDuplicates: true,
-      // logging: false,
-    },
-  );
-  const vendor3 = await User.findOne({
-    where: {
-      email: vendor3Email,
-    },
-    // logging: false,
+  createVendor('vendor1@gmail.com', {
+    password: 'testtest',
+    companyName: 'Toxic Tacos',
+    phone: '(916) 123-4567',
+    schedule: 'MWF 1pm-6pm',
+    lat: 38.56,
+    long: -121.426,
+    vegan: false,
+    vegetarian: true,
+    glutenFree: true,
   });
 
-  await VendorSettings.update(
-    {
-      companyName: "Swaine's Brains",
-      phone: '(916) 123-4567',
-      schedule: 'Mon-Fri 1pm-7pm',
-      lat: 38.563,
-      long: -121.4285,
-      vegan: true,
-      vegetarian: false,
-      glutenFree: false,
-    },
-    {
-      where: {
-        vendorId: vendor3.id,
-      },
-      // logging: false,
-    },
-  );
+  createVendor('vendor2@gmail.com', {
+    password: 'testtest',
+    companyName: 'StarTruck',
+    phone: '(916) 123-4567',
+    schedule: 'Sat Sun 5pm-9pm',
+    lat: 38.562,
+    long: -121.429,
+    vegan: true,
+    vegetarian: true,
+    glutenFree: true,
+  });
+
+  createVendor('vendor3@gmail.com', {
+    password: 'testtest',
+    companyName: "Swaine's Brains",
+    phone: '(916) 123-4567',
+    schedule: 'Mon-Fri 1pm-7pm',
+    lat: 38.563,
+    long: -121.4285,
+    vegan: false,
+    vegetarian: true,
+    glutenFree: false,
+  });
+
+  createVendor('vendor4@gmail.com', {
+    password: 'testtest',
+    companyName: 'Burgatory',
+    phone: '(916) 123-4567',
+    schedule: 'Mon-Fri 1pm-7pm',
+    lat: 38.553,
+    long: -121.4265,
+    vegan: false,
+    vegetarian: false,
+    glutenFree: true,
+  });
 };
 
 export default seed;
