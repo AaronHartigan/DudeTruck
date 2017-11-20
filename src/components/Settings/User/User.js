@@ -160,28 +160,28 @@ class User extends React.Component {
             <div className={s.form}>
               <label className={s.bold} htmlFor="name">
                 Name:
+                <input
+                  className={s.formControl}
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={this.state.name || ''}
+                  onChange={this.handleChange}
+                />
               </label>
-              <input
-                className={s.formControl}
-                type="text"
-                name="name"
-                id="name"
-                value={this.state.name || ''}
-                onChange={this.handleChange}
-              />
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="age">
                 Age:
+                <input
+                  className={s.formControl}
+                  type="number"
+                  name="age"
+                  id="age"
+                  value={this.state.age || ''}
+                  onChange={this.handleChange}
+                />
               </label>
-              <input
-                className={s.formControl}
-                type="number"
-                name="age"
-                id="age"
-                value={this.state.age || ''}
-                onChange={this.handleChange}
-              />
             </div>
             <input className={s.button} type="submit" value="Save" />
             {this.state.isLoading && <span>Saving...</span>}

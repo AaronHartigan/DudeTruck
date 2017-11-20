@@ -157,41 +157,41 @@ class Vendor extends React.Component {
             <div className={s.form}>
               <label className={s.bold} htmlFor="companyName">
                 Foodtruck Name:
+                <input
+                  className={s.formControl}
+                  type="text"
+                  name="companyName"
+                  id="companyName"
+                  value={this.state.companyName}
+                  onChange={this.handleChange}
+                />
               </label>
-              <input
-                className={s.formControl}
-                type="text"
-                name="companyName"
-                id="companyName"
-                value={this.state.companyName}
-                onChange={this.handleChange}
-              />
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="phone">
                 Phone:
+                <input
+                  className={s.formControl}
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  value={this.state.phone}
+                  onChange={this.handleChange}
+                />
               </label>
-              <input
-                className={s.formControl}
-                type="text"
-                name="phone"
-                id="phone"
-                value={this.state.phone}
-                onChange={this.handleChange}
-              />
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="schedule">
                 Schedule:
+                <input
+                  className={s.formControl}
+                  type="text"
+                  name="schedule"
+                  id="schedule"
+                  value={this.state.schedule}
+                  onChange={this.handleChange}
+                />
               </label>
-              <input
-                className={s.formControl}
-                type="text"
-                name="schedule"
-                id="schedule"
-                value={this.state.schedule}
-                onChange={this.handleChange}
-              />
             </div>
             <div className={s.bold}>I serve food that is...</div>
             <div className={s.checkbox}>

@@ -13,8 +13,9 @@ html,
 body {
   height: 100%;
 }
+
 body {
-  background: #e6e6e6;
+  background: #eee;
   font-family: 'Source Sans Pro', sans-serif;
 }
 

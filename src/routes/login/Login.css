@@ -27,7 +27,7 @@
   border: none;
   border-bottom: 1px solid black;
   border-radius: 0;
-  background: #e6e6e6;
+  background: var(--background-color);
   color: black;
   font-size: 16px;
   line-height: 1.3333333;

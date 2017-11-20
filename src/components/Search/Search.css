@@ -35,11 +35,16 @@ h1 {
 }
 
 .vendorLinkContainer {
+  background: #f8f8f8;
   padding: 8px 16px;
   white-space: nowrap;
-  box-shadow: 3px 3px 1px #455a64;
+  border: 1px solid #aaa;
   box-sizing: border-box;
   margin: -1px 0 0;
+}
+
+.vendorLinkContainer:hover {
+  background: #ddd;
 }
 
 .vendorTitle {
