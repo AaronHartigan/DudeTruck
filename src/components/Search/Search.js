@@ -60,7 +60,12 @@ class Search extends React.Component {
   }
 
   async componentDidMount() {
-    const pos = await getGPS().catch();
+    let pos = {};
+    try {
+      pos = await getGPS();
+    } catch (err) {
+      console.log(err); // eslint-disable-line no-console
+    }
     this.handleCoords(pos && pos.coords);
 
     const resp = await this.context.fetch('/graphql', {
