@@ -27,6 +27,18 @@ const getFoodOptions = function getFoodOptions(truck) {
   return options;
 };
 
+const getGPS = function getGPS() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const DEFAULT_LOCATION = {
+  // Sac State
+  lat: 38.5617845,
+  long: -121.4274376,
+};
+
 class Search extends React.Component {
   static contextTypes = {
     fetch: PropTypes.func.isRequired,
@@ -36,18 +48,19 @@ class Search extends React.Component {
     super();
 
     this.state = {
-      lat: 0,
-      long: 0,
+      lat: null,
+      long: null,
       trucks: [],
     };
 
     this.handleCoords = this.handleCoords.bind(this);
-    this.getGPS = this.getGPS.bind(this);
     this.setTrucks = this.setTrucks.bind(this);
   }
 
   async componentDidMount() {
-    this.getGPS();
+    const pos = await getGPS();
+    this.handleCoords(pos.coords);
+
     const resp = await this.context.fetch('/graphql', {
       body: JSON.stringify({
         query: `{
@@ -72,17 +85,20 @@ class Search extends React.Component {
     });
   }
 
-  getGPS() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.handleCoords);
+  handleCoords(coords) {
+    const newCoords = {};
+    if (
+      typeof coords.latitude !== 'number' ||
+      typeof coords.longitude !== 'number'
+    ) {
+      newCoords.lat = DEFAULT_LOCATION.lat;
+      newCoords.long = DEFAULT_LOCATION.long;
+    } else {
+      newCoords.lat = coords.latitude;
+      newCoords.long = coords.longitude;
     }
-  }
 
-  handleCoords(pos) {
-    this.setState({
-      lat: pos.coords.latitude,
-      long: pos.coords.longitude,
-    });
+    this.setState({ ...newCoords });
   }
 
   render() {
@@ -106,11 +122,13 @@ class Search extends React.Component {
         </Link>
       );
     });
+    const isClientSide =
+      typeof this.state.lat === 'number' && typeof this.state.long === 'number';
 
     return (
       <div className={s.root}>
         <div className={s.container}>
-          {this.state.lat && this.state.long ? (
+          {isClientSide ? (
             <div className={s.mapBox}>
               <GoogleMapReact
                 bootstrapURLKeys={GoogleMapsConfig}
