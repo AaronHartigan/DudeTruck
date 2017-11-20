@@ -30,8 +30,8 @@ class Login extends React.Component {
 
     return (
       <div className={s.root}>
-        <div className={s.logoContainer}>
-          <img src={''} alt="DudeTruck" />
+        <div className={s.titleContainer}>
+          <span>Welcome back.</span>
         </div>
         {errors}
         <form method="post">
