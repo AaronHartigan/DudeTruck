@@ -1,7 +1,27 @@
 @import '../../components/variables.css';
 
 .marker {
-  height: 10px;
-  width: 10px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+}
+
+.border {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
   background-color: red;
+  position: relative;
+}
+
+.text {
+  font-weight: bold;
+  font-size: 16px;
+  user-select: none;
+  text-align: center;
 }

@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import GoogleMapReact from 'google-map-react';
 import Link from '../Link';
 import Marker from '../Marker';
+import Spinner from '../Spinner';
 import s from './Search.css';
 
 const getFoodOptions = function getFoodOptions(truck) {
@@ -48,6 +49,7 @@ class Search extends React.Component {
     super();
 
     this.state = {
+      isLoading: true,
       lat: null,
       long: null,
       trucks: [],
@@ -58,8 +60,8 @@ class Search extends React.Component {
   }
 
   async componentDidMount() {
-    const pos = await getGPS();
-    this.handleCoords(pos.coords);
+    const pos = await getGPS().catch();
+    this.handleCoords(pos && pos.coords);
 
     const resp = await this.context.fetch('/graphql', {
       body: JSON.stringify({
@@ -85,7 +87,7 @@ class Search extends React.Component {
     });
   }
 
-  handleCoords(coords) {
+  handleCoords(coords = {}) {
     const newCoords = {};
     if (
       typeof coords.latitude !== 'number' ||
@@ -98,7 +100,10 @@ class Search extends React.Component {
       newCoords.long = coords.longitude;
     }
 
-    this.setState({ ...newCoords });
+    this.setState({
+      isLoading: false,
+      ...newCoords,
+    });
   }
 
   render() {
@@ -106,15 +111,17 @@ class Search extends React.Component {
       key: 'AIzaSyBITkFzK9gnYvlgnXe0pH1ixHACInErAVI',
     };
     const location = { lat: this.state.lat, lng: this.state.long };
-    const markers = this.state.trucks.map(truck => (
-      <Marker key={truck.id} lat={truck.lat} lng={truck.long} />
+    const markers = this.state.trucks.map((truck, idx) => (
+      <Marker key={truck.id} text={idx} lat={truck.lat} lng={truck.long} />
     ));
-    const links = this.state.trucks.map(truck => {
+    const links = this.state.trucks.map((truck, idx) => {
       const options = getFoodOptions(truck);
       return (
         <Link key={truck.id} className={s.link} to={`/vendor/${truck.id}`}>
           <div className={s.vendorLinkContainer}>
-            <div className={s.vendorTitle}>{truck.companyName}</div>
+            <div
+              className={s.vendorTitle}
+            >{`${truck.companyName} (${idx})`}</div>
             <div className={s.vendorInfo}>{truck.phone}</div>
             <div className={s.vendorInfo}>{truck.schedule}</div>
             <div className={s.vendorInfo}>{options}</div>
@@ -125,6 +132,9 @@ class Search extends React.Component {
     const isClientSide =
       typeof this.state.lat === 'number' && typeof this.state.long === 'number';
 
+    if (this.state.isLoading) {
+      return <Spinner />;
+    }
     return (
       <div className={s.root}>
         <div className={s.container}>

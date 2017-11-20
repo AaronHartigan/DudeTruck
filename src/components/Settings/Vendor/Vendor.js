@@ -154,82 +154,94 @@ class Vendor extends React.Component {
         <div className={s.container}>
           <h1>Vendor Settings</h1>
           <form onSubmit={this.handleSubmit}>
-            <div>
-              <label htmlFor="companyName">
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="companyName">
                 Foodtruck Name:
-                <input
-                  type="text"
-                  name="companyName"
-                  value={this.state.companyName}
-                  onChange={this.handleChange}
-                />
               </label>
+              <input
+                className={s.formControl}
+                type="text"
+                name="companyName"
+                id="companyName"
+                value={this.state.companyName}
+                onChange={this.handleChange}
+              />
             </div>
-            <div>
-              <label htmlFor="phone">
-                phone:
-                <input
-                  type="text"
-                  name="phone"
-                  value={this.state.phone}
-                  onChange={this.handleChange}
-                />
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="phone">
+                Phone:
               </label>
+              <input
+                className={s.formControl}
+                type="text"
+                name="phone"
+                id="phone"
+                value={this.state.phone}
+                onChange={this.handleChange}
+              />
             </div>
-            <div>
-              <label htmlFor="schedule">
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="schedule">
                 Schedule:
-                <input
-                  type="text"
-                  name="schedule"
-                  value={this.state.schedule}
-                  onChange={this.handleChange}
-                />
               </label>
+              <input
+                className={s.formControl}
+                type="text"
+                name="schedule"
+                id="schedule"
+                value={this.state.schedule}
+                onChange={this.handleChange}
+              />
             </div>
-            <div>I serve food that is...</div>
-            <div>
+            <div className={s.bold}>I serve food that is...</div>
+            <div className={s.checkbox}>
               <label htmlFor="vegetarian">
-                Vegetarian:
                 <input
                   type="checkbox"
                   name="vegetarian"
+                  id="vegetarian"
                   checked={this.state.vegetarian}
                   onChange={this.handleChange}
                 />
+                Vegetarian
               </label>
             </div>
-            <div>
+            <div className={s.checkbox}>
               <label htmlFor="vegan">
-                Vegan:
                 <input
                   type="checkbox"
                   name="vegan"
+                  id="vegan"
                   checked={this.state.vegan}
                   onChange={this.handleChange}
                 />
+                Vegan
               </label>
             </div>
-            <div>
+            <div className={s.checkbox}>
               <label htmlFor="glutenFree">
-                Gluten Free:
                 <input
                   type="checkbox"
                   name="glutenFree"
+                  id="glutenFree"
                   checked={this.state.glutenFree}
                   onChange={this.handleChange}
                 />
+                Gluten Free
               </label>
             </div>
             <div>
-              Lat: {this.state.lat} Long: {this.state.long}
+              <span className={s.bold}>Lat: </span>
+              {this.state.lat}
+              <span className={s.bold}> Long: </span>
+              {this.state.long}
             </div>
             <div>
               <button onClick={this.handleLocation} type="button">
                 Set Location
               </button>
             </div>
-            <input type="submit" value="Save" />
+            <input className={s.button} type="submit" value="Save" />
             {this.state.isLoading && <span>Saving...</span>}
             {!this.state.isLoading && (
               <span

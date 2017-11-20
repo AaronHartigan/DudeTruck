@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './User.css';
 
+let timer;
+
 class User extends React.Component {
   static contextTypes = {
     fetch: PropTypes.func.isRequired,
@@ -10,8 +12,8 @@ class User extends React.Component {
 
   static propTypes = {
     settings: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      age: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      age: PropTypes.number,
       vegan: PropTypes.bool.isRequired,
       vegetarian: PropTypes.bool.isRequired,
       glutenFree: PropTypes.bool.isRequired,
@@ -47,6 +49,10 @@ class User extends React.Component {
     this.hideLoading = this.hideLoading.bind(this);
   }
 
+  componentWillUnmount() {
+    clearTimeout(timer);
+  }
+
   showLoading() {
     this.setState({
       isLoading: true,
@@ -60,7 +66,7 @@ class User extends React.Component {
       hasRecentSaveSuccess: true,
     });
 
-    setTimeout(() => {
+    timer = setTimeout(() => {
       this.setState({
         hasRecentSaveSuccess: false,
       });
@@ -113,64 +119,71 @@ class User extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>User Settings</h1>
-          <div>I am...</div>
+          <div className={s.bold}>I am...</div>
           <form onSubmit={this.handleSubmit}>
-            <div>
+            <div className={s.checkbox}>
               <label htmlFor="vegetarian">
-                Vegetarian:
                 <input
                   type="checkbox"
                   name="vegetarian"
+                  id="vegetarian"
                   checked={this.state.vegetarian}
                   onChange={this.handleChange}
                 />
+                Vegetarian
               </label>
             </div>
-            <div>
+            <div className={s.checkbox}>
               <label htmlFor="vegan">
-                Vegan:
                 <input
                   type="checkbox"
                   name="vegan"
+                  id="vegan"
                   checked={this.state.vegan}
                   onChange={this.handleChange}
                 />
+                Vegan
               </label>
             </div>
-            <div>
+            <div className={s.checkbox}>
               <label htmlFor="glutenFree">
-                Gluten Free:
                 <input
                   type="checkbox"
                   name="glutenFree"
+                  id="glutenFree"
                   checked={this.state.glutenFree}
                   onChange={this.handleChange}
                 />
+                Gluten Free
               </label>
             </div>
-            <div>
-              <label htmlFor="name">
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="name">
                 Name:
-                <input
-                  type="text"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                />
               </label>
+              <input
+                className={s.formControl}
+                type="text"
+                name="name"
+                id="name"
+                value={this.state.name || ''}
+                onChange={this.handleChange}
+              />
             </div>
-            <div>
-              <label htmlFor="age">
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="age">
                 Age:
-                <input
-                  type="number"
-                  name="age"
-                  value={this.state.age}
-                  onChange={this.handleChange}
-                />
               </label>
+              <input
+                className={s.formControl}
+                type="number"
+                name="age"
+                id="age"
+                value={this.state.age || ''}
+                onChange={this.handleChange}
+              />
             </div>
-            <input type="submit" value="Save" />
+            <input className={s.button} type="submit" value="Save" />
             {this.state.isLoading && <span>Saving...</span>}
             {!this.state.isLoading && (
               <span

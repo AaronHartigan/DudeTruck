@@ -25,3 +25,79 @@ h1 {
   will-change: opacity;
   pointer-events: none;
 }
+
+.bold {
+  font-weight: 600;
+}
+
+.checkbox {
+  position: relative;
+  display: block;
+  margin: 10px 0;
+}
+
+.checkbox input[type=checkbox] {
+  position: absolute;
+  margin: 4px 0 0 -20px;
+}
+
+.checkbox > label {
+  min-height: 20px;
+  padding-left: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0 0 5px;
+}
+
+input {
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0;
+  text-shadow: none;
+  text-align: start;
+}
+
+.form {
+  margin: 0 0 15px;
+}
+
+.formControl {
+  box-sizing: border-box;
+  display: block;
+  width: 300px;
+  height: 34px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 0.25rem;
+  box-shadow: none;
+  transition: border-color eas-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.button {
+  width: 100px;
+  display: block;
+  background-color: var(--font-color);
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0 0;
+}
+
+.button:hover {
+  background-color: var(--font-highlight-color);
+  cursor: pointer;
+}

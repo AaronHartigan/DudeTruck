@@ -96,16 +96,18 @@ class Register extends React.Component {
         </div>
         {errors}
         <form method="post">
-          <span>I am...</span>
-          <select
-            id="type"
-            name="type"
-            value={this.state.selectValue}
-            onChange={this.handleSelect}
-          >
-            <option value={userTypes.user}>looking for food</option>
-            <option value={userTypes.vendor}>a food truck vendor</option>
-          </select>
+          <div className={s.formGroup}>
+            <span>I am...</span>
+            <select
+              id="type"
+              name="type"
+              value={this.state.selectValue}
+              onChange={this.handleSelect}
+            >
+              <option value={userTypes.user}>looking for food</option>
+              <option value={userTypes.vendor}>a food truck vendor</option>
+            </select>
+          </div>
           <div className={s.formGroup}>
             <input
               className={s.input}

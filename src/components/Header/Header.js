@@ -13,8 +13,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
 import Link from '../Link';
 import Navigation from '../Navigation';
-import logoUrl from './logo-small.png';
-import logoUrl2x from './logo-small@2x.png';
+import logoUrl from './dudetruck_logo.png';
 
 class Header extends React.Component {
   static propTypes = {
@@ -27,13 +26,7 @@ class Header extends React.Component {
         <div className={s.container}>
           <Navigation isLoggedIn={this.props.isLoggedIn} />
           <Link className={s.brand} to="/">
-            <img
-              src={logoUrl}
-              srcSet={`${logoUrl2x} 2x`}
-              width="38"
-              height="38"
-              alt="React"
-            />
+            <img src={logoUrl} width="38" height="38" alt="DudeTruck" />
             <span className={s.brandTxt}>DudeTruck</span>
           </Link>
         </div>

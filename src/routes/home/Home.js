@@ -11,73 +11,6 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Link from '../../components/Link';
 import s from './Home.css';
-import png1 from './bacon_mania_sm.png';
-import png2 from './buckhorn_grill_sm.png';
-import png3 from './anhonestpie_sm.png';
-import png4 from './Annies_SnoBiz_sm.png';
-import png5 from './azteca_logo_sm.png';
-import png6 from './chandos_tacos.png';
-import png7 from './chebuono_logo_sm.png';
-import png8 from './cecils_sm.png';
-import png9 from './Green_Papaya_sm.png';
-import png10 from './Flavor_Face_sm.png';
-import png11 from './dogtown_sm.png';
-import png12 from './cichyco_sm.png';
-import png13 from './Costas_Finest_sm.png';
-import png14 from './cowtown-creamery-logo-sm.png';
-import png15 from './Drewskis_sm.png';
-import png16 from './Gameday_Grill_sm.png';
-
-const tilesData = [
-  {
-    img: png1,
-  },
-  {
-    img: png2,
-  },
-  {
-    img: png3,
-  },
-  {
-    img: png4,
-  },
-  {
-    img: png5,
-  },
-  {
-    img: png6,
-  },
-  {
-    img: png7,
-  },
-  {
-    img: png8,
-  },
-  {
-    img: png9,
-  },
-  {
-    img: png10,
-  },
-  {
-    img: png11,
-  },
-  {
-    img: png12,
-  },
-  {
-    img: png13,
-  },
-  {
-    img: png14,
-  },
-  {
-    img: png15,
-  },
-  {
-    img: png16,
-  },
-];
 
 class Home extends React.Component {
   render() {
@@ -105,13 +38,6 @@ class Home extends React.Component {
           <Link className={s.button} to="/register">
             SIGN UP
           </Link>
-        </div>
-        <div className={s.slider}>
-          {tilesData.map(tile => (
-            <div className={s.grid} key={tile.img}>
-              <img src={tile.img} alt="" />
-            </div>
-          ))}
         </div>
       </div>
     );

@@ -123,6 +123,47 @@ const seed = async function seed() {
       // logging: false,
     },
   );
+
+  const vendor3Email = 'vendor3@gmail.com';
+  await User.bulkCreate(
+    [
+      {
+        email: vendor3Email,
+        password: 'testtest',
+        type: userTypes.vendor,
+      },
+    ],
+    {
+      individualHooks: true,
+      ignoreDuplicates: true,
+      // logging: false,
+    },
+  );
+  const vendor3 = await User.findOne({
+    where: {
+      email: vendor3Email,
+    },
+    // logging: false,
+  });
+
+  await VendorSettings.update(
+    {
+      companyName: "Swaine's Brains",
+      phone: '(916) 123-4567',
+      schedule: 'Mon-Fri 1pm-7pm',
+      lat: 38.563,
+      long: -121.4285,
+      vegan: true,
+      vegetarian: false,
+      glutenFree: false,
+    },
+    {
+      where: {
+        vendorId: vendor3.id,
+      },
+      // logging: false,
+    },
+  );
 };
 
 export default seed;

@@ -14,7 +14,8 @@
 }
 
 .formGroup {
-  margin-top: 15px;
+  margin: 15px auto 0;
+  max-width: 300px;
 }
 
 .input {
@@ -40,13 +41,15 @@
 }
 
 .buttonContainer {
+  width: 200px;
   padding-top: 5px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .button {
+  margin: 10px auto;
   padding: 8px;
-  width: 200px;
+  width: 100%;
   border: none;
   border-radius: 0;
   background: var(--font-color);
@@ -107,4 +110,5 @@
 
 .error {
   color: red;
+  text-align: center;
 }
