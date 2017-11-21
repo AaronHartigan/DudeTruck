@@ -127,3 +127,10 @@ A staging release for DudeTruck can currently be found [here](http://dudetruck-e
 Our bug repository is located on [Trello](https://trello.com/b/TH004EHd/dudetruck)
 When working on a bug, move it to "In Progress".  When the bug is fixed, move it to "Needs Testing".
 Once the bug has been tested and verify to no longer exist, move it to "Done".
+
+### Design Patterns
+
+Our app utilizes many of the golden rules of UI.  For example, it always offers
+informative feedback. When the user goes to save their settings, it displays
+a saving indicator.  Furthermore, it also signifies when the save completes.
+Other examples of good UI include our use of checkboxes in the settings page.

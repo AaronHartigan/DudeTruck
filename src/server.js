@@ -79,7 +79,6 @@ app.use((err, req, res, next) => {
     // `clearCookie`, otherwise user can't use web-app until cookie expires
     res.clearCookie('id_token');
     res.redirect('/login');
-    return;
   }
 
   next(err);
