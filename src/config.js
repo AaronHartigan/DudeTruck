@@ -43,10 +43,8 @@ module.exports = {
     jwt: { secret: process.env.JWT_SECRET || 'DudeTruck Foodtruck 69123' },
 
     aws: {
-      accessKeyId: process.env.ACCESS_KEY_ID || 'AKIAIOUFCD6UMLMKNDEA',
-      secretAccessKey:
-        process.env.SECRET_ACCESS_KEY ||
-        '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',
+      accessKeyId: process.env.ACCESS_KEY_ID,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY,
     },
 
     // https://developers.facebook.com/
