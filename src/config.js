@@ -42,6 +42,13 @@ module.exports = {
   auth: {
     jwt: { secret: process.env.JWT_SECRET || 'DudeTruck Foodtruck 69123' },
 
+    aws: {
+      accessKeyId: process.env.ACCESS_KEY_ID || 'AKIAIOUFCD6UMLMKNDEA',
+      secretAccessKey:
+        process.env.SECRET_ACCESS_KEY ||
+        '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',
+    },
+
     // https://developers.facebook.com/
     facebook: {
       id: process.env.FACEBOOK_APP_ID || '186244551745631',

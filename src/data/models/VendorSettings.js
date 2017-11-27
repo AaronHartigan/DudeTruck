@@ -18,6 +18,11 @@ const VendorSettings = Model.define('VendorSettings', {
     defaultValue: '',
   },
 
+  description: {
+    type: DataType.TEXT(),
+    defaultValue: '',
+  },
+
   phone: {
     type: DataType.STRING(12),
     defaultValue: '',

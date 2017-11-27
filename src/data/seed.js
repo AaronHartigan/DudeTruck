@@ -58,6 +58,7 @@ async function createVendor(email, options) {
       companyName: options.companyName,
       phone: options.phone,
       schedule: options.schedule,
+      description: options.description,
       lat: options.lat,
       long: options.long,
       vegan: options.vegan,
@@ -85,6 +86,7 @@ const seed = async function seed() {
   createVendor('vendor1@gmail.com', {
     password: 'testtest',
     companyName: 'Toxic Tacos',
+    description: 'Tacos that make you wish you had not ordered our food.',
     phone: '(916) 123-4567',
     schedule: 'MWF 1pm-6pm',
     lat: 38.56,
@@ -97,6 +99,7 @@ const seed = async function seed() {
   createVendor('vendor2@gmail.com', {
     password: 'testtest',
     companyName: 'StarTruck',
+    description: 'Coffee, with a twist.',
     phone: '(916) 123-4567',
     schedule: 'Sat Sun 5pm-9pm',
     lat: 38.562,
@@ -109,6 +112,7 @@ const seed = async function seed() {
   createVendor('vendor3@gmail.com', {
     password: 'testtest',
     companyName: "Swaine's Brains",
+    description: 'A Halloween classic!',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',
     lat: 38.563,
@@ -121,6 +125,7 @@ const seed = async function seed() {
   createVendor('vendor4@gmail.com', {
     password: 'testtest',
     companyName: 'Burgatory',
+    description: 'Are you ready?',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',
     lat: 38.553,

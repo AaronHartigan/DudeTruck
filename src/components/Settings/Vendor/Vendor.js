@@ -12,6 +12,7 @@ class Vendor extends React.Component {
     settings: PropTypes.shape({
       logo: PropTypes.string.isRequired,
       companyName: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       schedule: PropTypes.string.isRequired,
       lat: PropTypes.number.isRequired,
@@ -26,6 +27,7 @@ class Vendor extends React.Component {
     settings: {
       logo: '',
       companyName: '',
+      description: '',
       phone: '',
       schedule: '',
       lat: 0,
@@ -42,6 +44,7 @@ class Vendor extends React.Component {
     this.state = {
       logo: this.props.settings.logo,
       companyName: this.props.settings.companyName,
+      description: this.props.settings.description,
       phone: this.props.settings.phone,
       schedule: this.props.settings.schedule,
       lat: this.props.settings.lat,
@@ -59,6 +62,8 @@ class Vendor extends React.Component {
     this.handleLocation = this.handleLocation.bind(this);
     this.getGPS = this.getGPS.bind(this);
     this.handleCoords = this.handleCoords.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   getGPS() {
@@ -75,10 +80,11 @@ class Vendor extends React.Component {
     await this.context.fetch('/graphql', {
       body: JSON.stringify({
         query: `
-          mutation updateVendorSettings($logo: String, $companyName: String, $phone: String, $schedule: String, $lat: Float, $long: Float, $vegan: Boolean, $vegetarian: Boolean, $glutenFree: Boolean) {
-            updateVendorSettings(logo: $logo, companyName: $companyName, phone: $phone, schedule: $schedule, lat: $lat, long: $long vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
+          mutation updateVendorSettings($logo: String, $companyName: String, $description: String, $phone: String, $schedule: String, $lat: Float, $long: Float, $vegan: Boolean, $vegetarian: Boolean, $glutenFree: Boolean) {
+            updateVendorSettings(logo: $logo, companyName: $companyName, description: $description, phone: $phone, schedule: $schedule, lat: $lat, long: $long vegan: $vegan, vegetarian: $vegetarian, glutenFree: $glutenFree) {
               logo,
               companyName,
+              description,
               phone,
               schedule,
               lat,
@@ -92,6 +98,7 @@ class Vendor extends React.Component {
         variables: {
           logo: this.state.logo,
           companyName: this.state.companyName,
+          description: this.state.description,
           phone: this.state.phone,
           schedule: this.state.schedule,
           lat: this.state.lat,
@@ -148,6 +155,40 @@ class Vendor extends React.Component {
     this.getGPS();
   }
 
+  async uploadImage(file) {
+    const body = new FormData();
+    body.append(
+      'query',
+      `mutation logo {
+      logo {
+        logo,
+      }
+    }`,
+    );
+
+    body.append('file', file);
+
+    const resp = await fetch('/graphql', {
+      method: 'POST',
+      body,
+      mode: 'cors',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    const { data } = await resp.json();
+
+    this.setState({
+      logo: data.logo.logo,
+    });
+  }
+
+  handleFile(event) {
+    const file = event.target.files[0];
+    this.uploadImage(file);
+  }
+
   render() {
     return (
       <div className={s.root}>
@@ -163,6 +204,31 @@ class Vendor extends React.Component {
                   name="companyName"
                   id="companyName"
                   value={this.state.companyName}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="imageInput">
+                Upload Logo:
+                <input
+                  onChange={this.handleFile}
+                  id="imageInput"
+                  type="file"
+                  accept="image/png, image/jpeg"
+                />
+              </label>
+              <img className={s.logo} src={this.state.logo} alt="logo" />
+            </div>
+            <div className={s.form}>
+              <label className={s.bold} htmlFor="description">
+                Description:
+                <textarea
+                  className={s.formControlTextArea}
+                  type="text"
+                  name="description"
+                  id="description"
+                  value={this.state.description}
                   onChange={this.handleChange}
                 />
               </label>

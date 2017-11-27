@@ -30,6 +30,13 @@ h1 {
   font-weight: 600;
 }
 
+.logo {
+  display: block;
+  max-height: 200px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
 .checkbox {
   position: relative;
   display: block;
@@ -73,6 +80,21 @@ input {
   display: block;
   width: 300px;
   height: 34px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 0.25rem;
+  box-shadow: none;
+  transition: border-color eas-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.formControlTextArea {
+  box-sizing: border-box;
+  display: block;
+  width: 300px;
+  height: 100px;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;

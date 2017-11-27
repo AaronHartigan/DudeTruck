@@ -13,6 +13,7 @@ const VendorSettingsType = new ObjectType({
     id: { type: new NonNull(ID) },
     logo: { type: StringType },
     companyName: { type: StringType },
+    description: { type: StringType },
     phone: { type: StringType },
     schedule: { type: StringType },
     lat: { type: FloatType },

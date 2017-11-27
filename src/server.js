@@ -18,6 +18,7 @@ import fetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
+import multer from 'multer';
 import isEmail from 'validator/lib/isEmail';
 import validPassword from './core/validPassword';
 import App from './components/App';
@@ -178,6 +179,8 @@ app.post('/register', async (req, res) => {
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
+app.use('/graphql', multer({ storage: multer.memoryStorage() }).single('file'));
+
 app.use(
   '/graphql',
   expressGraphQL(req => ({

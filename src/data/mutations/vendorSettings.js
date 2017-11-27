@@ -11,6 +11,7 @@ const updateVendorSettings = {
   args: {
     logo: { type: StringType },
     companyName: { type: StringType },
+    description: { type: StringType },
     phone: { type: StringType },
     schedule: { type: StringType },
     lat: { type: FloatType },
@@ -26,6 +27,7 @@ const updateVendorSettings = {
         {
           logo: args.logo,
           companyName: args.companyName,
+          description: args.description,
           phone: args.phone,
           schedule: args.schedule,
           lat: args.lat,
