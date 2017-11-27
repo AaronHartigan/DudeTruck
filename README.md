@@ -134,3 +134,8 @@ Our app utilizes many of the golden rules of UI.  For example, it always offers
 informative feedback. When the user goes to save their settings, it displays
 a saving indicator.  Furthermore, it also signifies when the save completes.
 Other examples of good UI include our use of checkboxes in the settings page.
+
+### Unfinished Features
+
+Our app does not currently allow users to leave reviews.  All other planned
+features exist.
