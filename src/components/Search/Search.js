@@ -167,5 +167,5 @@ class Search extends React.Component {
   }
 }
 
-export { Search }; // for tests
 export default withStyles(s)(Search);
+export { Search as SearchTest };

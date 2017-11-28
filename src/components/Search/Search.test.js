@@ -1,38 +1,31 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 /* eslint-env jest */
 /* eslint-disable padded-blocks, no-unused-expressions */
 
-// import React from 'react';
-// import { render, mount } from 'enzyme';
-// import renderer from 'react-test-renderer';
-// import { Search } from './Search';
-// import App from '../App';
-//
-// describe('Search', () => {
-//   test('renders the map', () => {
-//     const context = {
-//       insertCss: () => {},
-//       fetch: () => {},
-//       store: {
-//         subscribe: () => {},
-//         dispatch: () => {},
-//         getState: () => {},
-//       },
-//     };
-//     const wrapper = mount(
-//       // <App context={context}>
-//         <Search />
-//       // </App>
-//     );
-//
-//     expect(wrapper.state('isLoading')).toBeTruthy();
-//   });
-// });
+import React from 'react';
+import { shallow } from 'enzyme';
+import GoogleMapReact from 'google-map-react';
+import { SearchTest } from './Search';
+import Spinner from '../Spinner';
+
+describe('<Search />', () => {
+  const context = {
+    fetch: () => {},
+  };
+  const wrapper = shallow(<SearchTest context={context} />);
+  test('Should initially display loading spinner', () => {
+    expect(wrapper.state('isLoading')).toBeTruthy();
+    expect(wrapper.find(Spinner).length).toBe(1);
+  });
+  test('Should not display loading spinner if not isLoading', () => {
+    wrapper.setState({ isLoading: false });
+    expect(wrapper.state('isLoading')).toBeFalsy();
+    expect(wrapper.find(Spinner).length).toBe(0);
+  });
+  test('Should not display GoogleMap if coordinates are null', () => {
+    expect(wrapper.find(GoogleMapReact).length).toBe(0);
+  });
+  test('Should display GoogleMap if coordinates are numbers', () => {
+    wrapper.setState({ lat: 1, long: 1 });
+    expect(wrapper.find(GoogleMapReact).length).toBe(1);
+  });
+});
