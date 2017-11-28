@@ -30,7 +30,10 @@ const getFoodOptions = function getFoodOptions(truck) {
 
 const getGPS = function getGPS() {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
+    if (navigator && navigator.geolocation) {
+      return navigator.geolocation.getCurrentPosition(resolve, reject);
+    }
+    return null;
   });
 };
 
@@ -72,7 +75,7 @@ class Search extends React.Component {
       body: JSON.stringify({
         query: `{
           trucks {
-            id,companyName,phone,schedule,lat,long,vegan,vegetarian,glutenFree
+            id,logo,companyName,phone,schedule,lat,long,vegan,vegetarian,glutenFree
           }
         }`,
       }),
@@ -124,6 +127,9 @@ class Search extends React.Component {
       return (
         <Link key={truck.id} className={s.link} to={`/vendor/${truck.id}`}>
           <div className={s.vendorLinkContainer}>
+            <div className={s.imageContainer}>
+              <img className={s.image} src={truck.logo} alt="" />
+            </div>
             <div
               className={s.vendorTitle}
             >{`${truck.companyName} (${idx})`}</div>
@@ -161,4 +167,5 @@ class Search extends React.Component {
   }
 }
 
+export { Search }; // for tests
 export default withStyles(s)(Search);

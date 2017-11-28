@@ -64,3 +64,18 @@ h1 {
   font-size: 16px;
   line-height: 20px;
 }
+
+.imageContainer {
+  height: 84px;
+  width: 84px;
+  float: right;
+  margin: 0 0 8px 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

@@ -12,6 +12,7 @@ class Vendor extends React.Component {
     truck: PropTypes.shape({
       logo: PropTypes.string.isRequired,
       companyName: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       schedule: PropTypes.string.isRequired,
       lat: PropTypes.number.isRequired,
@@ -27,6 +28,7 @@ class Vendor extends React.Component {
     truck: {
       logo: '',
       companyName: '',
+      description: '',
       phone: '',
       schedule: '',
       lat: 0,
@@ -49,7 +51,9 @@ class Vendor extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <div>Name: {this.props.truck.companyName}</div>
+          <img src={this.props.truck.logo} alt="logo" />
+          <h1>{this.props.truck.companyName}</h1>
+          <div>{this.props.truck.description}</div>
           <div>Phone: {this.props.truck.phone}</div>
           <div>Schedule: {this.props.truck.schedule}</div>
           <div>Vegan: {hasFoodInEnglish(this.props.truck.vegan)}</div>

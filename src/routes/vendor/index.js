@@ -17,6 +17,7 @@ async function action({ params, store, fetch }) {
           truck(id: $id) {
             logo,
             companyName,
+            description,
             phone,
             schedule,
             lat,
