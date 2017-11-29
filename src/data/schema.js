@@ -19,6 +19,7 @@ import news from './queries/news';
 import truck from './queries/truck';
 import trucks from './queries/trucks';
 import logo from './mutations/logo';
+import feedback from './mutations/feedback';
 import updateUserSettings from './mutations/userSettings';
 import updateVendorSettings from './mutations/vendorSettings';
 
@@ -38,6 +39,7 @@ const schema = new Schema({
     name: 'Mutation',
     fields: {
       logo,
+      feedback,
       updateUserSettings,
       updateVendorSettings,
     },
