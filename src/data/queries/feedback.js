@@ -18,6 +18,7 @@ const feedback = {
         where: {
           revieweeId: args.id,
         },
+        order: [['updatedAt', 'DESC']],
       })
     );
   },

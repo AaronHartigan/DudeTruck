@@ -1,16 +1,8 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Feedback.css';
+import Spinner from '../Spinner';
 
 class Feedback extends React.Component {
   static contextTypes = {
@@ -28,6 +20,8 @@ class Feedback extends React.Component {
       reviews: [],
       review: '',
       rating: '',
+      hasReview: false,
+      isLoading: true,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +36,12 @@ class Feedback extends React.Component {
         query: `
           query feedbackList($id: ID!) {
             feedbackList(id: $id) {
-              id,
+              id
+              review
+              rating
+              updatedAt
+            }
+            myReview(id: $id){
               review,
               rating,
             }
@@ -55,12 +54,28 @@ class Feedback extends React.Component {
     });
     const { data } = await resp.json();
 
-    this.setReviews(data && data.feedbackList);
+    this.setReviews(data);
   }
 
-  setReviews(reviews = []) {
+  setReviews(data = {}) {
+    const reviews = data.feedbackList || [];
+    const myReview = data.myReview;
+
+    let review = '';
+    let rating = '';
+    let hasReview = false;
+    if (myReview) {
+      review = myReview.review;
+      rating = myReview.rating;
+      hasReview = true;
+    }
+
     this.setState({
       reviews,
+      review,
+      rating,
+      isLoading: false,
+      hasReview,
     });
   }
 
@@ -77,6 +92,13 @@ class Feedback extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
 
+    if (
+      isNaN(Number.parseInt(this.state.rating, 10)) ||
+      this.state.rating < 1 ||
+      this.state.rating > 5
+    ) {
+      return;
+    }
     const resp = await this.context.fetch('/graphql', {
       body: JSON.stringify({
         query: `
@@ -85,6 +107,7 @@ class Feedback extends React.Component {
               id,
               review,
               rating,
+              updatedAt,
             }
           }
         `,
@@ -100,28 +123,64 @@ class Feedback extends React.Component {
   }
 
   updateReviews(review = {}) {
-    const reviews = this.state.reviews;
-    const reviewIdx = reviews.findIndex(
-      element => element && element.id === review.id,
-    );
+    const reviews = this.state.reviews || [];
+    const reviewIdx = reviews.findIndex(e => e && e.id === review.id);
     if (reviewIdx === -1) {
-      reviews.push(review);
+      // if user did not already have a review,
+      // add user's review to beginning of array
+      reviews.unshift(review);
     } else {
+      // else update review
       reviews[reviewIdx] = review;
     }
 
     this.setState({
       reviews,
       rating: review.rating,
+      hasReview: true,
     });
   }
 
   render() {
-    const reviews = this.state.reviews.map(review => (
-      <div key={review.id}>
-        ({review.rating} stars) {review.review}
-      </div>
-    ));
+    let reviews = this.state.reviews;
+
+    if (this.state.isLoading) {
+      reviews = <Spinner />;
+    } else if (!reviews || reviews.length === 0) {
+      reviews = (
+        <div>Sorry! No reviews exist. Be the first to leave a review!</div>
+      );
+    } else {
+      reviews = reviews.map(review => {
+        const stars = [1, 2, 3, 4, 5].map(elem => {
+          if (review.rating >= elem) {
+            return (
+              <span key={elem} className={s.active}>
+                ★
+              </span>
+            );
+          }
+          return (
+            <span key={elem} className={s.faded}>
+              ★
+            </span>
+          );
+        });
+        const unixDate = Date.parse(review.updatedAt);
+        const date = new Date(unixDate).toLocaleDateString('en-US');
+
+        return (
+          <div key={review.id}>
+            <div>
+              {stars} {date}
+            </div>
+            {review.review}
+          </div>
+        );
+      });
+    }
+
+    const submitText = this.state.hasReview ? 'Update' : 'Submit';
 
     return (
       <div className={s.container}>
@@ -152,7 +211,7 @@ class Feedback extends React.Component {
               />
             </label>
           </div>
-          <input className={s.button} type="submit" value="Submit" />
+          <input className={s.button} type="submit" value={submitText} />
         </form>
         {reviews}
       </div>

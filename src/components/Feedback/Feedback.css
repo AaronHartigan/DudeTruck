@@ -71,3 +71,11 @@
 .bold {
   font-weight: bold;
 }
+
+.active {
+  color: #f2ea18;
+}
+
+.faded {
+  color: gray;
+}
