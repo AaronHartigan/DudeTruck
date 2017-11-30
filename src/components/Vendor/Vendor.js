@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Feedback from '../Feedback';
 import s from './Vendor.css';
 
 const boolToEnglish = function boolToEnglish(hasFood) {
@@ -20,15 +21,8 @@ class Vendor extends React.Component {
       vegan: PropTypes.bool.isRequired,
       vegetarian: PropTypes.bool.isRequired,
       glutenFree: PropTypes.bool.isRequired,
+      vendorId: PropTypes.string.isRequired,
     }),
-    reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        text: PropTypes.string,
-        rating: PropTypes.number,
-        reviewerName: PropTypes.string,
-        reviewerAge: PropTypes.number,
-      }),
-    ),
     error: PropTypes.bool,
   };
 
@@ -44,41 +38,10 @@ class Vendor extends React.Component {
       vegan: false,
       vegetarian: false,
       glutenFree: false,
+      vendorId: '',
     },
-    reviews: [],
     error: true,
   };
-
-  constructor() {
-    super();
-
-    this.state = {
-      review: '',
-      rating: null,
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    // this will change (just to get eslint off my back)
-    this.setState({
-      rating: null,
-    });
-  }
 
   render() {
     if (this.props.error) {
@@ -89,7 +52,6 @@ class Vendor extends React.Component {
       );
     }
 
-    const reviews = this.props.reviews.map(review => <div>{review.text}</div>);
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -101,24 +63,8 @@ class Vendor extends React.Component {
           <div>Vegan: {boolToEnglish(this.props.truck.vegan)}</div>
           <div>Vegetarian: {boolToEnglish(this.props.truck.vegetarian)}</div>
           <div>Gluten Free: {boolToEnglish(this.props.truck.glutenFree)}</div>
-          <form onSubmit={this.handleSubmit}>
-            <div className={s.form}>
-              <label htmlFor="review">
-                <textarea
-                  className={s.formControlTextArea}
-                  type="text"
-                  name="review"
-                  id="review"
-                  placeholder="Leave a review..."
-                  value={this.state.review}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </div>
-            <input className={s.button} type="submit" value="Submit" />
-          </form>
-          <div>{reviews}</div>
         </div>
+        <Feedback vendorId={this.props.truck.vendorId} />
       </div>
     );
   }

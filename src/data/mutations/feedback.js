@@ -10,29 +10,35 @@ import Feedback from '../models/Feedback';
 const feedback = {
   type: FeedbackType,
   args: {
-    reviewerId: { type: new NonNull(ID) },
     revieweeId: { type: new NonNull(ID) },
     review: { type: StringType },
     rating: { type: IntType },
   },
-  resolve(root, args, { user }) {
-    return (
-      user &&
-      Feedback.upsert(
-        {
-          reviewerId: args.reviewerId,
+  async resolve(root, args, { user }) {
+    if (!user) {
+      return null;
+    }
+    await Feedback.upsert(
+      {
+        reviewerId: user.id,
+        revieweeId: args.revieweeId,
+        review: args.review,
+        // rating: args.rating,
+      },
+      {
+        where: {
+          reviewerId: user.id,
           revieweeId: args.revieweeId,
-          review: args.review,
-          // rating: args.rating,
         },
-        {
-          where: {
-            reviewerId: args.reviewerId,
-            revieweeId: args.revieweeId,
-          },
-        },
-      )
+      },
     );
+
+    return Feedback.findOne({
+      where: {
+        reviewerId: user.id,
+        revieweeId: args.revieweeId,
+      },
+    });
   },
 };
 

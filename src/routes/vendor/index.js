@@ -25,6 +25,7 @@ async function action({ params, store, fetch }) {
             vegan,
             vegetarian,
             glutenFree,
+            vendorId,
           }
         }
       `,

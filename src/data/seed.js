@@ -1,6 +1,7 @@
 import User from './models/User';
 import UserSettings from './models/UserSettings';
 import VendorSettings from './models/VendorSettings';
+import Feedback from './models/Feedback';
 import { userTypes } from '../constants';
 
 async function createUser(email, options) {
@@ -73,6 +74,36 @@ async function createVendor(email, options) {
   );
 }
 
+async function createReview(userEmail, vendorEmail, options) {
+  const user = await User.findOne({
+    where: {
+      email: userEmail,
+    },
+  });
+
+  const vendor = await User.findOne({
+    where: {
+      email: vendorEmail,
+    },
+  });
+
+  if (!user || !vendor) {
+    console.log('Unable to create Reviews'); // eslint-disable-line no-console
+    return;
+  }
+
+  Feedback.findCreateFind({
+    where: {
+      reviewerId: user.id,
+      revieweeId: vendor.id,
+    },
+    defaults: {
+      review: options.review,
+      // rating: options.rating,
+    },
+  });
+}
+
 const seed = async function seed() {
   createUser('user1@gmail.com', {
     password: 'testtest',
@@ -133,6 +164,10 @@ const seed = async function seed() {
     vegan: false,
     vegetarian: false,
     glutenFree: true,
+  });
+
+  createReview('user1@gmail.com', 'vendor1@gmail.com', {
+    review: 'This food tastes good.',
   });
 };
 

@@ -19,6 +19,7 @@ import news from './queries/news';
 import truck from './queries/truck';
 import trucks from './queries/trucks';
 import logo from './mutations/logo';
+import feedbackList from './queries/feedback';
 import feedback from './mutations/feedback';
 import updateUserSettings from './mutations/userSettings';
 import updateVendorSettings from './mutations/vendorSettings';
@@ -33,6 +34,7 @@ const schema = new Schema({
       news,
       truck,
       trucks,
+      feedbackList,
     },
   }),
   mutation: new ObjectType({

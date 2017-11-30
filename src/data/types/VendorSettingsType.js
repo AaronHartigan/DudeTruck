@@ -21,6 +21,7 @@ const VendorSettingsType = new ObjectType({
     vegan: { type: BooleanType },
     vegetarian: { type: BooleanType },
     glutenFree: { type: BooleanType },
+    vendorId: { type: new NonNull(ID) },
   },
 });
 
