@@ -117,7 +117,7 @@ app.post('/login', async (req, res) => {
       return res.redirect(`${failureUrl}&errors=${JSON.stringify(errors)}`);
     }
 
-    const expiresIn = 60 * 60 * 24 * 365; // 1 year
+    const expiresIn = 60 * 60 * 24; // 1 day
     const token = jwt.sign({ id: user.id }, config.auth.jwt.secret, {
       expiresIn,
     });

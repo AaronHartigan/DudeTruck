@@ -105,7 +105,7 @@ async function createReview(userEmail, vendorEmail, options) {
 }
 
 const seed = async function seed() {
-  createUser('user1@gmail.com', {
+  await createUser('user1@gmail.com', {
     password: 'testtest',
     name: 'Leeroy Jenkins',
     age: 21,
@@ -114,7 +114,7 @@ const seed = async function seed() {
     glutenFree: true,
   });
 
-  createVendor('vendor1@gmail.com', {
+  await createVendor('vendor1@gmail.com', {
     password: 'testtest',
     companyName: 'Toxic Tacos',
     description: 'Tacos that make you wish you had not ordered our food.',
@@ -127,7 +127,7 @@ const seed = async function seed() {
     glutenFree: true,
   });
 
-  createVendor('vendor2@gmail.com', {
+  await createVendor('vendor2@gmail.com', {
     password: 'testtest',
     companyName: 'StarTruck',
     description: 'Coffee, with a twist.',
@@ -140,7 +140,7 @@ const seed = async function seed() {
     glutenFree: true,
   });
 
-  createVendor('vendor3@gmail.com', {
+  await createVendor('vendor3@gmail.com', {
     password: 'testtest',
     companyName: "Swaine's Brains",
     description: 'A Halloween classic!',
@@ -153,7 +153,7 @@ const seed = async function seed() {
     glutenFree: false,
   });
 
-  createVendor('vendor4@gmail.com', {
+  await createVendor('vendor4@gmail.com', {
     password: 'testtest',
     companyName: 'Burgatory',
     description: 'Are you ready?',
@@ -166,12 +166,12 @@ const seed = async function seed() {
     glutenFree: true,
   });
 
-  createReview('user1@gmail.com', 'vendor1@gmail.com', {
+  await createReview('user1@gmail.com', 'vendor1@gmail.com', {
     review: 'This food tastes good.',
     rating: 5,
   });
 
-  createReview('user1@gmail.com', 'vendor2@gmail.com', {
+  await createReview('user1@gmail.com', 'vendor2@gmail.com', {
     review: 'This food tastes OK.',
     rating: 3,
   });
