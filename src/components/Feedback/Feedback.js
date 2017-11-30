@@ -44,6 +44,7 @@ class Feedback extends React.Component {
             feedbackList(id: $id) {
               id,
               review,
+              rating,
             }
           }
         `,
@@ -54,10 +55,10 @@ class Feedback extends React.Component {
     });
     const { data } = await resp.json();
 
-    this.setReviews(data.feedbackList);
+    this.setReviews(data && data.feedbackList);
   }
 
-  setReviews(reviews) {
+  setReviews(reviews = []) {
     this.setState({
       reviews,
     });
@@ -90,17 +91,19 @@ class Feedback extends React.Component {
         variables: {
           revieweeId: this.props.vendorId,
           review: this.state.review,
-          rating: this.state.null,
+          rating: this.state.rating,
         },
       }),
     });
     const { data } = await resp.json();
-    this.updateReviews(data.feedback);
+    this.updateReviews(data && data.feedback);
   }
 
-  updateReviews(review) {
+  updateReviews(review = {}) {
     const reviews = this.state.reviews;
-    const reviewIdx = reviews.findIndex(element => element.id === review.id);
+    const reviewIdx = reviews.findIndex(
+      element => element && element.id === review.id,
+    );
     if (reviewIdx === -1) {
       reviews.push(review);
     } else {
