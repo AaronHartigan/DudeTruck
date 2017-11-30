@@ -27,7 +27,7 @@ class Feedback extends React.Component {
     this.state = {
       reviews: [],
       review: '',
-      rating: null,
+      rating: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,13 +83,14 @@ class Feedback extends React.Component {
             feedback(revieweeId: $revieweeId, review: $review, rating: $rating) {
               id,
               review,
+              rating,
             }
           }
         `,
         variables: {
           revieweeId: this.props.vendorId,
           review: this.state.review,
-          rating: null,
+          rating: this.state.null,
         },
       }),
     });
@@ -100,21 +101,41 @@ class Feedback extends React.Component {
   updateReviews(review) {
     const reviews = this.state.reviews;
     const reviewIdx = reviews.findIndex(element => element.id === review.id);
-    reviews[reviewIdx] = review;
+    if (reviewIdx === -1) {
+      reviews.push(review);
+    } else {
+      reviews[reviewIdx] = review;
+    }
 
     this.setState({
       reviews,
+      rating: review.rating,
     });
   }
 
   render() {
     const reviews = this.state.reviews.map(review => (
-      <div key={review.id}>{review.review}</div>
+      <div key={review.id}>
+        ({review.rating} stars) {review.review}
+      </div>
     ));
 
     return (
       <div className={s.container}>
         <form onSubmit={this.handleSubmit}>
+          <div className={s.form}>
+            <label className={s.bold} htmlFor="rating">
+              Rating:
+              <input
+                className={s.formControl}
+                type="number"
+                name="rating"
+                id="rating"
+                value={this.state.rating}
+                onChange={this.handleChange}
+              />
+            </label>
+          </div>
           <div className={s.form}>
             <label htmlFor="review">
               <textarea

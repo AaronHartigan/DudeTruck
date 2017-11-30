@@ -99,7 +99,7 @@ async function createReview(userEmail, vendorEmail, options) {
     },
     defaults: {
       review: options.review,
-      // rating: options.rating,
+      rating: options.rating,
     },
   });
 }
@@ -168,6 +168,12 @@ const seed = async function seed() {
 
   createReview('user1@gmail.com', 'vendor1@gmail.com', {
     review: 'This food tastes good.',
+    rating: 5,
+  });
+
+  createReview('user1@gmail.com', 'vendor2@gmail.com', {
+    review: 'This food tastes OK.',
+    rating: 3,
   });
 };
 

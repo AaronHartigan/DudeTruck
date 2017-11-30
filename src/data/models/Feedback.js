@@ -10,35 +10,9 @@ const Feedback = Model.define(
       primaryKey: true,
     },
 
-    // reviewerId: {
-    //   type: DataType.UUID,
-    //   defaultValue: DataType.UUIDV1,
-    //   allowNull: false,
-    // }
-    // revieweeId: {
-    //   type: DataType.UUID,
-    //   defaultValue: DataType.UUIDV1,
-    //   allowNull: false,
-    // }
-
-    stars5Count: {
-      type: DataType.INTEGER,
-    },
-
-    stars4Count: {
-      type: DataType.INTEGER,
-    },
-
-    stars3Count: {
-      type: DataType.INTEGER,
-    },
-
-    stars2Count: {
-      type: DataType.INTEGER,
-    },
-
-    stars1Count: {
-      type: DataType.INTEGER,
+    rating: {
+      type: DataType.TINYINT,
+      defaultValue: null,
     },
 
     review: {

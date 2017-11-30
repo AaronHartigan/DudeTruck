@@ -23,7 +23,7 @@ const feedback = {
         reviewerId: user.id,
         revieweeId: args.revieweeId,
         review: args.review,
-        // rating: args.rating,
+        rating: args.rating,
       },
       {
         where: {
