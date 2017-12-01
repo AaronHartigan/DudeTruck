@@ -114,7 +114,7 @@ class Feedback extends React.Component {
         variables: {
           revieweeId: this.props.vendorId,
           review: this.state.review,
-          rating: this.state.rating,
+          rating: Number.parseInt(this.state.rating, 10) || '',
         },
       }),
     });
@@ -170,11 +170,11 @@ class Feedback extends React.Component {
         const date = new Date(unixDate).toLocaleDateString('en-US');
 
         return (
-          <div key={review.id}>
+          <div key={review.id} className={s.reviewWrapper}>
             <div>
               {stars} {date}
             </div>
-            {review.review}
+            <div className={s.reviewText}>{review.review}</div>
           </div>
         );
       });
@@ -213,7 +213,9 @@ class Feedback extends React.Component {
           </div>
           <input className={s.button} type="submit" value={submitText} />
         </form>
-        {reviews}
+        <div className={s.reviewsContainer}>
+          <div className={s.columnSpacer}>{reviews}</div>
+        </div>
       </div>
     );
   }

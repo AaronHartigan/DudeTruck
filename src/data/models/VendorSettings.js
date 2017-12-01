@@ -10,7 +10,8 @@ const VendorSettings = Model.define('VendorSettings', {
 
   logo: {
     type: DataType.STRING(255),
-    defaultValue: '',
+    defaultValue:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
   },
 
   companyName: {

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import FaPhone from 'react-icons/lib/fa/phone';
+import FaCalendar from 'react-icons/lib/fa/calendar';
 import Feedback from '../Feedback';
+import foodOptions from '../../core/foodOptions';
 import s from './Vendor.css';
-
-const boolToEnglish = function boolToEnglish(hasFood) {
-  return hasFood ? 'Yes' : 'No';
-};
 
 class Vendor extends React.Component {
   static propTypes = {
@@ -51,18 +50,34 @@ class Vendor extends React.Component {
         </div>
       );
     }
+    const dietaryOptions = foodOptions(this.props.truck) || 'None';
 
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <img src={this.props.truck.logo} alt="" />
-          <h1>{this.props.truck.companyName}</h1>
-          <div>{this.props.truck.description}</div>
-          <div>Phone: {this.props.truck.phone}</div>
-          <div>Schedule: {this.props.truck.schedule}</div>
-          <div>Vegan: {boolToEnglish(this.props.truck.vegan)}</div>
-          <div>Vegetarian: {boolToEnglish(this.props.truck.vegetarian)}</div>
-          <div>Gluten Free: {boolToEnglish(this.props.truck.glutenFree)}</div>
+          <div className={s.header}>
+            <div className={s.imageContainer}>
+              <img className={s.image} src={this.props.truck.logo} alt="" />
+            </div>
+            <div className={s.title}>
+              <h1>{this.props.truck.companyName}</h1>
+              <div>
+                <FaPhone /> {this.props.truck.phone}
+              </div>
+              <div>
+                <FaCalendar /> {this.props.truck.schedule}
+              </div>
+            </div>
+            <div className={s.clear} />
+          </div>
+          <div className={s.fieldContainer}>
+            <div className={s.bold}>Description:</div>
+            <div>{this.props.truck.description}</div>
+          </div>
+          <div className={s.fieldContainer}>
+            <div className={s.bold}>Special Dietary Options:</div>
+            <div>{dietaryOptions}</div>
+          </div>
         </div>
         <Feedback vendorId={this.props.truck.vendorId} />
       </div>
