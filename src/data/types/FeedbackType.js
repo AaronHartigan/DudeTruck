@@ -12,6 +12,8 @@ const FeedbackType = new ObjectType({
     id: { type: new NonNull(ID) },
     review: { type: StringType },
     rating: { type: IntType },
+    name: { type: StringType },
+    age: { type: IntType },
     updatedAt: { type: StringType },
   },
 });

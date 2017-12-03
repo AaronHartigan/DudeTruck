@@ -192,8 +192,8 @@ class Vendor extends React.Component {
   render() {
     return (
       <div className={s.root}>
+        <h1>Vendor Settings</h1>
         <div className={s.container}>
-          <h1>Vendor Settings</h1>
           <form onSubmit={this.handleSubmit}>
             <div className={s.form}>
               <label className={s.bold} htmlFor="companyName">

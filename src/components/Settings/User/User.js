@@ -117,8 +117,8 @@ class User extends React.Component {
   render() {
     return (
       <div className={s.root}>
+        <h1>User Settings</h1>
         <div className={s.container}>
-          <h1>User Settings</h1>
           <div className={s.bold}>I am...</div>
           <form onSubmit={this.handleSubmit}>
             <div className={s.checkbox}>

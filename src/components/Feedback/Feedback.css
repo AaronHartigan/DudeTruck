@@ -22,13 +22,21 @@
 }
 
 .form {
+  width: 100%;
   margin: 0 0 15px;
+}
+
+.formWrapper {
+  float: left;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 0 30px;
 }
 
 .formControl {
   box-sizing: border-box;
   display: block;
-  width: 300px;
+  width: 100%;
   height: 34px;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
@@ -43,8 +51,9 @@
 .formControlTextArea {
   box-sizing: border-box;
   display: block;
-  width: 300px;
-  height: 100px;
+  width: 100%;
+  min-height: 150px;
+  resize: none;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
@@ -80,7 +89,7 @@
 
 .active {
   font-size: 20px;
-  color: #e9e10d;
+  color: #e7c11a;
 }
 
 .faded {
@@ -88,12 +97,19 @@
   color: gray;
 }
 
-.reviewsContainer {
-  max-width: 650px;
+.reviewSidebar {
+  width: 175px;
+  float: left;
 }
 
-.columnSpacer {
-  padding: 0 30px 0 0;
+.reviewsContainer {
+  max-width: 618px;
+}
+
+.review {
+  float: left;
+  width: 100%;
+  max-width: 400px;
 }
 
 .reviewWrapper {
@@ -102,7 +118,22 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+.reviewWrapper:first-of-type {
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 .reviewText {
-  max-width: 380px;
+  white-space: pre-line;
+  max-width: 400px;
+  width: 100%;
   margin: 0 0 15px;
+}
+
+.clear {
+  clear: both;
+}
+
+.date {
+  color: #333;
+  font-size: 15px;
 }

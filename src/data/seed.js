@@ -57,6 +57,7 @@ async function createVendor(email, options) {
   await VendorSettings.update(
     {
       companyName: options.companyName,
+      logo: options.logo,
       phone: options.phone,
       schedule: options.schedule,
       description: options.description,
@@ -117,6 +118,8 @@ const seed = async function seed() {
   await createVendor('vendor1@gmail.com', {
     password: 'testtest',
     companyName: 'Toxic Tacos',
+    logo:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
     description: 'Tacos that make you wish you had not ordered our food.',
     phone: '(916) 123-4567',
     schedule: 'MWF 1pm-6pm',
@@ -130,6 +133,8 @@ const seed = async function seed() {
   await createVendor('vendor2@gmail.com', {
     password: 'testtest',
     companyName: 'StarTruck',
+    logo:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
     description: 'Coffee, with a twist.',
     phone: '(916) 123-4567',
     schedule: 'Sat Sun 5pm-9pm',
@@ -143,6 +148,8 @@ const seed = async function seed() {
   await createVendor('vendor3@gmail.com', {
     password: 'testtest',
     companyName: "Swaine's Brains",
+    logo:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
     description: 'A Halloween classic!',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',
@@ -156,6 +163,8 @@ const seed = async function seed() {
   await createVendor('vendor4@gmail.com', {
     password: 'testtest',
     companyName: 'Burgatory',
+    logo:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
     description: 'Are you ready?',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',

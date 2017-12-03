@@ -39,11 +39,13 @@ class Feedback extends React.Component {
               id
               review
               rating
+              name
+              age
               updatedAt
             }
             myReview(id: $id){
-              review,
-              rating,
+              review
+              rating
             }
           }
         `,
@@ -124,14 +126,16 @@ class Feedback extends React.Component {
 
   updateReviews(review = {}) {
     const reviews = this.state.reviews || [];
-    const reviewIdx = reviews.findIndex(e => e && e.id === review.id);
-    if (reviewIdx === -1) {
+    const idx = reviews.findIndex(e => e && e.id === review.id);
+    if (idx === -1) {
       // if user did not already have a review,
       // add user's review to beginning of array
       reviews.unshift(review);
     } else {
       // else update review
-      reviews[reviewIdx] = review;
+      reviews[idx].rating = review.rating;
+      reviews[idx].review = review.review;
+      reviews[idx].updatedAt = review.updatedAt;
     }
 
     this.setState({
@@ -171,10 +175,14 @@ class Feedback extends React.Component {
 
         return (
           <div key={review.id} className={s.reviewWrapper}>
-            <div>
-              {stars} {date}
+            <div className={s.reviewSidebar}>{review.name}</div>
+            <div className={s.review}>
+              <div>
+                {stars} <span className={s.date}>{date}</span>
+              </div>
+              <div className={s.reviewText}>{review.review}</div>
             </div>
-            <div className={s.reviewText}>{review.review}</div>
+            <div className={s.clear} />
           </div>
         );
       });
@@ -184,7 +192,8 @@ class Feedback extends React.Component {
 
     return (
       <div className={s.container}>
-        <form onSubmit={this.handleSubmit}>
+        <div className={s.reviewSidebar}>Name</div>
+        <form className={s.formWrapper} onSubmit={this.handleSubmit}>
           <div className={s.form}>
             <label className={s.bold} htmlFor="rating">
               Rating:
@@ -213,9 +222,8 @@ class Feedback extends React.Component {
           </div>
           <input className={s.button} type="submit" value={submitText} />
         </form>
-        <div className={s.reviewsContainer}>
-          <div className={s.columnSpacer}>{reviews}</div>
-        </div>
+        <div className={s.clear} />
+        <div className={s.reviewsContainer}>{reviews}</div>
       </div>
     );
   }
