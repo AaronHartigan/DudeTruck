@@ -209,7 +209,7 @@ class Feedback extends React.Component {
       reviews[idx].updatedAt = review.updatedAt;
     }
 
-    reviews.sort((a, b) => a.updatedAt < b.updatedAt);
+    reviews.sort((a, b) => Date.parse(a.updatedAt) < Date.parse(b.updatedAt));
 
     this.setState({
       reviews,
