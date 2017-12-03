@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import cx from 'classnames';
 import s from './Feedback.css';
 import Spinner from '../Spinner';
 
@@ -19,7 +20,11 @@ class Feedback extends React.Component {
     this.state = {
       reviews: [],
       review: '',
+      isRating: false,
+      highlightRating: '',
       rating: '',
+      name: '\u00A0',
+      age: '',
       hasReview: false,
       isLoading: true,
     };
@@ -28,6 +33,10 @@ class Feedback extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setReviews = this.setReviews.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
+    this.getStars = this.getStars.bind(this);
+    this.onRate = this.onRate.bind(this);
+    this.willRate = this.willRate.bind(this);
+    this.onCancelRate = this.onCancelRate.bind(this);
   }
 
   async componentDidMount() {
@@ -46,6 +55,8 @@ class Feedback extends React.Component {
             myReview(id: $id){
               review
               rating
+              name
+              age
             }
           }
         `,
@@ -59,16 +70,62 @@ class Feedback extends React.Component {
     this.setReviews(data);
   }
 
+  onRate(rating, event) {
+    event.preventDefault();
+    this.setState({
+      isRating: false,
+      rating,
+    });
+  }
+
+  onCancelRate(event) {
+    event.preventDefault();
+    this.setState({
+      isRating: false,
+    });
+  }
+
+  getStars(rating, interactive) {
+    const stars = [1, 2, 3, 4, 5].map(num => {
+      const interactiveClass = interactive ? s.interactive : null;
+      const activeClass = rating >= num ? s.active : s.faded;
+      const classNames = cx(interactiveClass, activeClass);
+      return (
+        <span
+          key={num}
+          role="presentation"
+          className={classNames}
+          onClick={interactive ? this.onRate.bind(this, num) : null}
+          onMouseEnter={interactive ? this.willRate.bind(this, num) : null}
+        >
+          ★
+        </span>
+      );
+    });
+    return (
+      <span
+        className={s.star}
+        onMouseLeave={interactive ? this.onCancelRate : null}
+      >
+        {stars}
+      </span>
+    );
+  }
+
   setReviews(data = {}) {
     const reviews = data.feedbackList || [];
     const myReview = data.myReview;
 
     let review = '';
     let rating = '';
+    let name = '';
+    let age = '';
     let hasReview = false;
     if (myReview) {
       review = myReview.review;
       rating = myReview.rating;
+      name = myReview.name;
+      age = myReview.age;
       hasReview = true;
     }
 
@@ -76,8 +133,18 @@ class Feedback extends React.Component {
       reviews,
       review,
       rating,
+      name,
+      age,
       isLoading: false,
       hasReview,
+    });
+  }
+
+  willRate(rating, event) {
+    event.preventDefault();
+    this.setState({
+      isRating: true,
+      highlightRating: rating,
     });
   }
 
@@ -106,10 +173,12 @@ class Feedback extends React.Component {
         query: `
           mutation feedback($revieweeId: ID!, $review: String, $rating: Int) {
             feedback(revieweeId: $revieweeId, review: $review, rating: $rating) {
-              id,
-              review,
-              rating,
-              updatedAt,
+              id
+              review
+              rating
+              name
+              age
+              updatedAt
             }
           }
         `,
@@ -135,8 +204,12 @@ class Feedback extends React.Component {
       // else update review
       reviews[idx].rating = review.rating;
       reviews[idx].review = review.review;
+      reviews[idx].name = review.name;
+      reviews[idx].age = review.age;
       reviews[idx].updatedAt = review.updatedAt;
     }
+
+    reviews.sort((a, b) => a.updatedAt < b.updatedAt);
 
     this.setState({
       reviews,
@@ -152,24 +225,17 @@ class Feedback extends React.Component {
       reviews = <Spinner />;
     } else if (!reviews || reviews.length === 0) {
       reviews = (
-        <div>Sorry! No reviews exist. Be the first to leave a review!</div>
+        <div className={s.reviewWrapper}>
+          <div className={s.reviewSidebar}>{'\u00A0'}</div>
+          <div className={s.review}>
+            No reviews exist. Be the first to leave a review!
+          </div>
+          <div className={s.clear} />
+        </div>
       );
     } else {
       reviews = reviews.map(review => {
-        const stars = [1, 2, 3, 4, 5].map(elem => {
-          if (review.rating >= elem) {
-            return (
-              <span key={elem} className={s.active}>
-                ★
-              </span>
-            );
-          }
-          return (
-            <span key={elem} className={s.faded}>
-              ★
-            </span>
-          );
-        });
+        const stars = this.getStars(review.rating, false);
         const unixDate = Date.parse(review.updatedAt);
         const date = new Date(unixDate).toLocaleDateString('en-US');
 
@@ -189,24 +255,20 @@ class Feedback extends React.Component {
     }
 
     const submitText = this.state.hasReview ? 'Update' : 'Submit';
+    const rating = this.state.isRating
+      ? this.state.highlightRating
+      : this.state.rating;
+    const stars = this.getStars(rating, true);
 
     return (
       <div className={s.container}>
-        <div className={s.reviewSidebar}>Name</div>
+        <div className={s.bold}>Leave a review:</div>
+        <div className={s.reviewSidebar}>
+          <div className={s.verticalSpacer} />
+          {this.state.name}
+        </div>
         <form className={s.formWrapper} onSubmit={this.handleSubmit}>
-          <div className={s.form}>
-            <label className={s.bold} htmlFor="rating">
-              Rating:
-              <input
-                className={s.formControl}
-                type="number"
-                name="rating"
-                id="rating"
-                value={this.state.rating}
-                onChange={this.handleChange}
-              />
-            </label>
-          </div>
+          <div>{stars}</div>
           <div className={s.form}>
             <label htmlFor="review">
               <textarea

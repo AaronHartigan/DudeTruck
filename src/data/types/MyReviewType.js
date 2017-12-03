@@ -9,6 +9,8 @@ const MyReviewType = new ObjectType({
   fields: {
     review: { type: StringType },
     rating: { type: IntType },
+    name: { type: StringType },
+    age: { type: IntType },
   },
 });
 
