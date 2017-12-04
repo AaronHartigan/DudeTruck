@@ -67,6 +67,12 @@ To launch unit tests:
 $ npm run test          # Run unit tests with Jest
 ```
 
+To see code coverage, run:
+```shell
+$ jest --coverage
+```
+Note: this requires jest to have been installed `npm install -g jest`
+
 ### How to Update
 
 If you need to keep your project up to date with the recent changes made,
@@ -135,7 +141,10 @@ informative feedback. When the user goes to save their settings, it displays
 a saving indicator.  Furthermore, it also signifies when the save completes.
 Other examples of good UI include our use of checkboxes in the settings page.
 
-### Unfinished Features
+### Known Issues
 
-Our app does not currently allow users to leave reviews.  All other planned
-features exist.
+On the LIVE version of the app, no GPS functionality works. This means on the
+vendor settings page, clicking "Set Location" will not do anything.
+
+On the LOCAL version of the app, you need AWS credentials in order to upload
+a logo.  Please contact Aaron Hartigan for the credentials.
