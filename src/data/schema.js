@@ -15,9 +15,9 @@ import {
 import me from './queries/me';
 import user from './queries/userSettings';
 import vendor from './queries/vendorSettings';
-import news from './queries/news';
 import truck from './queries/truck';
 import trucks from './queries/trucks';
+import rating from './queries/rating';
 import myReview from './queries/myReview';
 import logo from './mutations/logo';
 import feedbackList from './queries/feedback';
@@ -32,10 +32,10 @@ const schema = new Schema({
       me,
       user,
       vendor,
-      news,
       truck,
       trucks,
       myReview,
+      rating,
       feedbackList,
     },
   }),

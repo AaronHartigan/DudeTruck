@@ -19,6 +19,7 @@
 
 .error {
   margin: 50px auto;
+  text-align: center;
 }
 
 h1 {
@@ -55,6 +56,10 @@ h1 {
 
 .clear {
   clear: both;
+}
+
+.rating {
+  color: var(--star-color);
 }
 
 .fieldContainer {

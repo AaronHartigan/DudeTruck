@@ -13,7 +13,7 @@ async function action({ params, store, fetch }) {
   const resp = await fetch('/graphql', {
     body: JSON.stringify({
       query: `
-        query truck ($id: ID!) {
+        query truckInfo ($id: ID!) {
           truck(id: $id) {
             logo,
             companyName,
@@ -27,6 +27,10 @@ async function action({ params, store, fetch }) {
             glutenFree,
             vendorId,
           }
+          rating(id: $id) {
+            rating,
+            count,
+          }
         }
       `,
       variables: {
@@ -36,15 +40,16 @@ async function action({ params, store, fetch }) {
   });
   const { data } = await resp.json();
 
-  const hasError = !(data && data.truck);
+  const hasError = !(data && data.truck && data.rating);
   const truckData = data && data.truck;
+  const ratingData = data && data.rating;
 
   return {
     chunks: ['vendorPage'],
     title: 'Vendor Information',
     component: (
       <Layout isLoggedIn={isLoggedIn(user)}>
-        <Vendor error={hasError} truck={truckData} />
+        <Vendor error={hasError} truck={truckData} rating={ratingData} />
       </Layout>
     ),
   };

@@ -4,6 +4,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import FaPhone from 'react-icons/lib/fa/phone';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import Feedback from '../Feedback';
+import Stars from '../Stars';
 import foodOptions from '../../core/foodOptions';
 import s from './Vendor.css';
 
@@ -22,6 +23,10 @@ class Vendor extends React.Component {
       glutenFree: PropTypes.bool.isRequired,
       vendorId: PropTypes.string.isRequired,
     }),
+    rating: PropTypes.shape({
+      rating: PropTypes.number.isRequired,
+      count: PropTypes.number.isRequired,
+    }),
     error: PropTypes.bool,
   };
 
@@ -38,6 +43,10 @@ class Vendor extends React.Component {
       vegetarian: false,
       glutenFree: false,
       vendorId: '',
+    },
+    rating: {
+      rating: 0,
+      count: 0,
     },
     error: true,
   };
@@ -61,6 +70,12 @@ class Vendor extends React.Component {
             </div>
             <div className={s.title}>
               <h1>{this.props.truck.companyName}</h1>
+              <div>
+                <span className={s.rating}>
+                  {this.props.rating.rating.toFixed(1)}
+                </span>{' '}
+                <Stars rating={this.props.rating.rating} /> ({this.props.rating.count})
+              </div>
               <div>
                 <FaPhone /> {this.props.truck.phone}
               </div>

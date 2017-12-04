@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import cx from 'classnames';
 import s from './Feedback.css';
+import Stars from '../Stars';
 import Spinner from '../Spinner';
 
 class Feedback extends React.Component {
@@ -33,7 +33,6 @@ class Feedback extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setReviews = this.setReviews.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
-    this.getStars = this.getStars.bind(this);
     this.onRate = this.onRate.bind(this);
     this.willRate = this.willRate.bind(this);
     this.onCancelRate = this.onCancelRate.bind(this);
@@ -83,33 +82,6 @@ class Feedback extends React.Component {
     this.setState({
       isRating: false,
     });
-  }
-
-  getStars(rating, interactive) {
-    const stars = [1, 2, 3, 4, 5].map(num => {
-      const interactiveClass = interactive ? s.interactive : null;
-      const activeClass = rating >= num ? s.active : s.faded;
-      const classNames = cx(interactiveClass, activeClass);
-      return (
-        <span
-          key={num}
-          role="presentation"
-          className={classNames}
-          onClick={interactive ? this.onRate.bind(this, num) : null}
-          onMouseEnter={interactive ? this.willRate.bind(this, num) : null}
-        >
-          ★
-        </span>
-      );
-    });
-    return (
-      <span
-        className={s.star}
-        onMouseLeave={interactive ? this.onCancelRate : null}
-      >
-        {stars}
-      </span>
-    );
   }
 
   setReviews(data = {}) {
@@ -204,7 +176,7 @@ class Feedback extends React.Component {
       // else update review
       reviews[idx].rating = review.rating;
       reviews[idx].review = review.review;
-      reviews[idx].name = review.name;
+      reviews[idx].name = review.name || '\u00A0';
       reviews[idx].age = review.age;
       reviews[idx].updatedAt = review.updatedAt;
     }
@@ -235,7 +207,6 @@ class Feedback extends React.Component {
       );
     } else {
       reviews = reviews.map(review => {
-        const stars = this.getStars(review.rating, false);
         const unixDate = Date.parse(review.updatedAt);
         const date = new Date(unixDate).toLocaleDateString('en-US');
 
@@ -244,7 +215,8 @@ class Feedback extends React.Component {
             <div className={s.reviewSidebar}>{review.name}</div>
             <div className={s.review}>
               <div>
-                {stars} <span className={s.date}>{date}</span>
+                <Stars rating={review.rating} />
+                <span className={s.date}> {date}</span>
               </div>
               <div className={s.reviewText}>{review.review}</div>
             </div>
@@ -258,7 +230,6 @@ class Feedback extends React.Component {
     const rating = this.state.isRating
       ? this.state.highlightRating
       : this.state.rating;
-    const stars = this.getStars(rating, true);
 
     return (
       <div className={s.container}>
@@ -268,7 +239,15 @@ class Feedback extends React.Component {
           {this.state.name}
         </div>
         <form className={s.formWrapper} onSubmit={this.handleSubmit}>
-          <div>{stars}</div>
+          <div>
+            <Stars
+              rating={rating}
+              interactive
+              onRate={this.onRate}
+              willRate={this.willRate}
+              onCancelRate={this.onCancelRate}
+            />
+          </div>
           <div className={s.form}>
             <label htmlFor="review">
               <textarea

@@ -1,0 +1,21 @@
+@import '../variables.css';
+
+.active {
+  color: var(--star-color);
+}
+
+.faded {
+  color: gray;
+}
+
+.star {
+  font-size: 20px;
+}
+
+.interactive {
+  font-size: 32px;
+}
+
+.interactive:hover {
+  cursor: pointer;
+}

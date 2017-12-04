@@ -72,14 +72,6 @@
   font-weight: bold;
 }
 
-.active {
-  color: #e7c11a;
-}
-
-.faded {
-  color: gray;
-}
-
 .reviewSidebar {
   width: 175px;
   float: left;
@@ -124,18 +116,6 @@
 .date {
   color: #333;
   font-size: 15px;
-}
-
-.star {
-  font-size: 20px;
-}
-
-.interactive {
-  font-size: 32px;
-}
-
-.interactive:hover {
-  cursor: pointer;
 }
 
 .verticalSpacer {

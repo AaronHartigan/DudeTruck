@@ -46,7 +46,7 @@ const feedback = {
 
     const reviewer = await User.findOne({
       where: {
-        id: args.revieweeId,
+        id: user.id,
       },
     });
 
