@@ -212,7 +212,10 @@ class Feedback extends React.Component {
 
         return (
           <div key={review.id} className={s.reviewWrapper}>
-            <div className={s.reviewSidebar}>{review.name}</div>
+            <div className={s.reviewSidebar}>
+              <div className={s.verticalSpacerSmall} />
+              {review.name}
+            </div>
             <div className={s.review}>
               <div>
                 <Stars rating={review.rating} />
