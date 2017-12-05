@@ -12,6 +12,7 @@ class Feedback extends React.Component {
 
   static propTypes = {
     vendorId: PropTypes.string.isRequired,
+    shouldUpdate: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -26,7 +27,9 @@ class Feedback extends React.Component {
       name: '\u00A0',
       age: '',
       hasReview: false,
+      isUpdating: false,
       isLoading: true,
+      hasRatingError: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -86,14 +89,14 @@ class Feedback extends React.Component {
 
   setReviews(data = {}) {
     const reviews = data.feedbackList || [];
-    const myReview = data.myReview;
+    const myReview = data.myReview || {};
 
     let review = '';
     let rating = '';
     let name = '';
     let age = '';
     let hasReview = false;
-    if (myReview) {
+    if (myReview.review) {
       review = myReview.review;
       rating = myReview.rating;
       name = myReview.name;
@@ -136,10 +139,20 @@ class Feedback extends React.Component {
     if (
       isNaN(Number.parseInt(this.state.rating, 10)) ||
       this.state.rating < 1 ||
-      this.state.rating > 5
+      this.state.rating > 5 ||
+      this.state.review.length === 0
     ) {
+      this.setState({
+        hasRatingError: true,
+      });
       return;
     }
+
+    this.setState({
+      hasRatingError: false,
+      isUpdating: true,
+    });
+
     const resp = await this.context.fetch('/graphql', {
       body: JSON.stringify({
         query: `
@@ -162,6 +175,13 @@ class Feedback extends React.Component {
       }),
     });
     const { data } = await resp.json();
+
+    if (!(data || data.feedback)) {
+      this.setState({
+        isUpdating: false,
+      });
+    }
+
     this.updateReviews(data && data.feedback);
   }
 
@@ -186,8 +206,10 @@ class Feedback extends React.Component {
     this.setState({
       reviews,
       rating: review.rating,
+      isUpdating: false,
       hasReview: true,
     });
+    this.props.shouldUpdate();
   }
 
   render() {
@@ -229,7 +251,12 @@ class Feedback extends React.Component {
       });
     }
 
-    const submitText = this.state.hasReview ? 'Update' : 'Submit';
+    let submitText = 'Submit';
+    if (this.state.isUpdating) {
+      submitText = 'Saving...';
+    } else if (this.state.hasReview) {
+      submitText = 'Update';
+    }
     const rating = this.state.isRating
       ? this.state.highlightRating
       : this.state.rating;
@@ -264,7 +291,17 @@ class Feedback extends React.Component {
               />
             </label>
           </div>
-          <input className={s.button} type="submit" value={submitText} />
+          <input
+            className={s.button}
+            type="submit"
+            disabled={this.state.isUpdating}
+            value={submitText}
+          />
+          {this.state.hasRatingError ? (
+            <div className={s.error}>
+              Please set a star rating and leave a comment.
+            </div>
+          ) : null}
         </form>
         <div className={s.clear} />
         <div className={s.reviewsContainer}>{reviews}</div>

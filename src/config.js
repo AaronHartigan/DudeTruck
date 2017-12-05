@@ -40,7 +40,7 @@ module.exports = {
 
   // Authentication
   auth: {
-    jwt: { secret: process.env.JWT_SECRET || 'DudeTruck Foodtruck 69123' },
+    jwt: { secret: process.env.JWT_SECRET || 'DudeTruck Foodtruck v12' },
 
     aws: {
       accessKeyId: process.env.ACCESS_KEY_ID,

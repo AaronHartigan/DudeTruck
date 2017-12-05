@@ -9,6 +9,10 @@ import foodOptions from '../../core/foodOptions';
 import s from './Vendor.css';
 
 class Vendor extends React.Component {
+  static contextTypes = {
+    fetch: PropTypes.func.isRequired,
+  };
+
   static propTypes = {
     truck: PropTypes.shape({
       logo: PropTypes.string.isRequired,
@@ -27,6 +31,7 @@ class Vendor extends React.Component {
       rating: PropTypes.number.isRequired,
       count: PropTypes.number.isRequired,
     }),
+    ratingId: PropTypes.string,
     error: PropTypes.bool,
   };
 
@@ -48,8 +53,46 @@ class Vendor extends React.Component {
       rating: 0,
       count: 0,
     },
+    ratingId: '',
     error: true,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rating: this.props.rating,
+    };
+
+    this.updateRating = this.updateRating.bind(this);
+  }
+
+  async updateRating() {
+    const resp = await this.context.fetch('/graphql', {
+      body: JSON.stringify({
+        query: `
+          query rating($id: ID!) {
+            rating(id: $id) {
+              rating,
+              count,
+            }
+          }
+        `,
+        variables: {
+          id: this.props.ratingId,
+        },
+      }),
+    });
+    const { data } = await resp.json();
+    const rating = data && data.rating;
+
+    this.setState({
+      rating: {
+        rating: rating.rating,
+        count: rating.count,
+      },
+    });
+  }
 
   render() {
     if (this.props.error) {
@@ -60,6 +103,7 @@ class Vendor extends React.Component {
       );
     }
     const dietaryOptions = foodOptions(this.props.truck) || 'None';
+    const rating = this.state.rating;
 
     return (
       <div className={s.root}>
@@ -72,9 +116,9 @@ class Vendor extends React.Component {
               <h1>{this.props.truck.companyName}</h1>
               <div>
                 <span className={s.rating}>
-                  {this.props.rating.rating.toFixed(1)}
+                  {rating.count !== 0 ? rating.rating.toFixed(1) : null}
                 </span>{' '}
-                <Stars rating={this.props.rating.rating} /> ({this.props.rating.count})
+                <Stars rating={rating.rating} /> ({rating.count})
               </div>
               <div>
                 <FaPhone /> {this.props.truck.phone}
@@ -94,7 +138,10 @@ class Vendor extends React.Component {
             <div>{dietaryOptions}</div>
           </div>
         </div>
-        <Feedback vendorId={this.props.truck.vendorId} />
+        <Feedback
+          shouldUpdate={this.updateRating}
+          vendorId={this.props.truck.vendorId}
+        />
       </div>
     );
   }

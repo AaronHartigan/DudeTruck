@@ -10,6 +10,7 @@
 :root {
   --font-color: #78909c;
   --font-highlight-color: #90a4ae;
+  --font-disabled-color: #566b76;
   --background-color: #efefef;
   --star-color: #e7c11a;
 

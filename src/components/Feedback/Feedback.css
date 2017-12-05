@@ -68,6 +68,11 @@
   cursor: pointer;
 }
 
+.button:disabled {
+  background-color: var(--font-disabled-color);
+  cursor: not-allowed;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -124,4 +129,9 @@
 
 .verticalSpacerSmall {
   margin: 0 0 3px;
+}
+
+.error {
+  margin: 5px 0;
+  color: red;
 }

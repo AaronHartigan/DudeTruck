@@ -49,7 +49,12 @@ async function action({ params, store, fetch }) {
     title: 'Vendor Information',
     component: (
       <Layout isLoggedIn={isLoggedIn(user)}>
-        <Vendor error={hasError} truck={truckData} rating={ratingData} />
+        <Vendor
+          error={hasError}
+          ratingId={params.id}
+          truck={truckData}
+          rating={ratingData}
+        />
       </Layout>
     ),
   };
