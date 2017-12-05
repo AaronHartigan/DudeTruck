@@ -279,6 +279,92 @@ const seed = async function seed() {
     review: 'This food tastes OK.',
     rating: 3,
   });
+
+  await createReview('user2@gmail.com', 'vendor1@gmail.com', {
+    review: 'Small food portions and overpriced.',
+    rating: 2,
+  });
+
+  await createReview('user3@gmail.com', 'vendor2@gmail.com', {
+    review: 'My food was cold!!!',
+    rating: 1,
+  });
+
+  await createReview('user4@gmail.com', 'vendor2@gmail.com', {
+    review: 'Excellent food and friendly service!',
+    rating: 5,
+  });
+
+  await createReview('user5@gmail.com', 'vendor3@gmail.com', {
+    review: 'Bad customer service, but food was delicious!',
+    rating: 3,
+  });
+
+  await createReview('user6@gmail.com', 'vendor3@gmail.com', {
+    review: 'Although the wait was long, the food was very good.',
+    rating: 4,
+  });
+
+  await createReview('user7@gmail.com', 'vendor4@gmail.com', {
+    review:
+      'I could have stayed home and made myself better food. Not satisfied at all! But it was convenient.',
+    rating: 2,
+  });
+
+  await createReview('user8@gmail.com', 'vendor4@gmail.com', {
+    review:
+      'This is my favorite food truck! The food was marvelous and the service was excellent!! I would give a million rating if I could!!!',
+    rating: 5,
+  });
+
+  await createReview('user9@gmail.com', 'vendor5@gmail.com', {
+    review:
+      'Is it possible to give a 0 rating?!?! This food truck is not friendly and the food is overpriced for such small portions. Also not very tasty!',
+    rating: 1,
+  });
+
+  await createReview('user10@gmail.com', 'vendor5@gmail.com', {
+    review:
+      'The best thing about this food truck is that its convenient to locate, thanks to DudeTruck!',
+    rating: 3,
+  });
+
+  await createReview('user10@gmail.com', 'vendor9@gmail.com', {
+    review: 'Place offers gluten free food and it tastes really good.',
+    rating: 5,
+  });
+
+  await createReview('user8@gmail.com', 'vendor1@gmail.com', {
+    review: 'A food truck that serves Vegan, but does not suit my taste.',
+    rating: 2,
+  });
+
+  await createReview('user3@gmail.com', 'vendor7@gmail.com', {
+    review: "Vegetarian food truck that's rare and now I know why.",
+    rating: 1,
+  });
+
+  await createReview('user6@gmail.com', 'vendor8@gmail.com', {
+    review: 'Gluten-free truck and the food was very good.',
+    rating: 4,
+  });
+
+  await createReview('user2@gmail.com', 'vendor4@gmail.com', {
+    review: 'Vegatarian food truck, yeah...not so much. Horrible food.',
+    rating: 2,
+  });
+
+  await createReview('user9@gmail.com', 'vendor6@gmail.com', {
+    review:
+      "Great food truck who offers not to cook using ingredients that I'm allergic too.",
+    rating: 5,
+  });
+
+  await createReview('user1@gmail.com', 'vendor5@gmail.com', {
+    review:
+      'DudeTruck listed this vegan food truck and they cater to customers with allergies!',
+    rating: 4,
+  });
 };
 
 export default seed;
