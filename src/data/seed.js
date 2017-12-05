@@ -170,11 +170,25 @@ const seed = async function seed() {
     schedule: 'Mon-Fri 1pm-7pm',
     lat: 38.553,
     long: -121.4265,
-    vegan: false,
+    vegan: true,
     vegetarian: false,
     glutenFree: true,
   });
 
+  await createVendor('vendor5@gmail.com', {
+    password: 'testtest',
+    companyName: 'TacoBandito',
+    logo:
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
+    description: 'Bomb Tacos',
+    phone: '(916) 123-4567',
+    schedule: 'Mon-Fri 1am-7am',
+    lat: 38.553,
+    long: -121.4265,
+    vegan: false,
+    vegetarian: false,
+    glutenFree: true,
+  });
   await createReview('user1@gmail.com', 'vendor1@gmail.com', {
     review: 'This food tastes good.',
     rating: 5,
