@@ -55,6 +55,18 @@ const trucks = {
             long: {
               [Op.ne]: 0,
             },
+            companyName: {
+              [Op.ne]: '',
+            },
+            phone: {
+              [Op.ne]: '',
+            },
+            description: {
+              [Op.ne]: '',
+            },
+            schedule: {
+              [Op.ne]: '',
+            },
             [Op.and]: whereStatementAndClause,
           },
           limit: 100,

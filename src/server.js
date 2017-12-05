@@ -33,6 +33,7 @@ import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import configureStore from './store/configureStore';
 import config from './config';
 import seed from './data/seed';
+import { userTypes } from './constants';
 
 const app = express();
 
@@ -139,7 +140,7 @@ app.post('/register', async (req, res) => {
   const email = req.body.email.trim();
   const password = req.body.password;
   const verifyPassword = req.body.verifyPassword;
-  const type = req.body.type;
+  const type = req.body.isVendor ? userTypes.vendor : userTypes.user;
   const failureUrl = `/register?email=${email}`;
   const successUrl = `/login?email=${email}`;
   const errors = [];

@@ -194,10 +194,11 @@ class Vendor extends React.Component {
       <div className={s.root}>
         <h1>Vendor Settings</h1>
         <div className={s.container}>
+          <div>* = required to show up in search results</div>
           <form onSubmit={this.handleSubmit}>
             <div className={s.form}>
               <label className={s.bold} htmlFor="companyName">
-                Foodtruck Name:
+                * Foodtruck Name:
                 <input
                   className={s.formControl}
                   type="text"
@@ -222,7 +223,7 @@ class Vendor extends React.Component {
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="description">
-                Description:
+                * Description:
                 <textarea
                   className={s.formControlTextArea}
                   type="text"
@@ -235,7 +236,7 @@ class Vendor extends React.Component {
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="phone">
-                Phone:
+                * Phone:
                 <input
                   className={s.formControl}
                   type="text"
@@ -248,7 +249,7 @@ class Vendor extends React.Component {
             </div>
             <div className={s.form}>
               <label className={s.bold} htmlFor="schedule">
-                Schedule:
+                * Schedule:
                 <input
                   className={s.formControl}
                   type="text"
@@ -297,7 +298,7 @@ class Vendor extends React.Component {
               </label>
             </div>
             <div>
-              <span className={s.bold}>Lat: </span>
+              <span className={s.bold}>* Lat: </span>
               {this.state.lat}
               <span className={s.bold}> Long: </span>
               {this.state.long}

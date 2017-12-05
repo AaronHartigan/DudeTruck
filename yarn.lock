@@ -6870,7 +6870,7 @@ promised-io@*:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/promised-io/-/promised-io-0.3.5.tgz#4ad217bb3658bcaae9946b17a8668ecd851e1356"
 
-prop-types@^15.5.10, prop-types@^15.5.4:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -7097,6 +7097,13 @@ react-test-renderer@^15.6.1:
   dependencies:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
+
+react-tooltip@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.4.0.tgz#037f38f797c3e6b1b58d2534ccc8c2c76af4f52d"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
 
 react@^15.5.4:
   version "15.6.2"

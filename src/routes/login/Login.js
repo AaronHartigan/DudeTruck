@@ -30,38 +30,40 @@ class Login extends React.Component {
 
     return (
       <div className={s.root}>
-        <div className={s.titleContainer}>
-          <span>Welcome back.</span>
-        </div>
-        {errors}
-        <form method="post">
-          <div className={s.formGroup}>
-            <input
-              className={s.input}
-              id="email"
-              type="text"
-              name="email"
-              placeholder="Email Address"
-              defaultValue={this.props.query.email}
-            />
+        <div className={s.container}>
+          <div className={s.titleContainer}>
+            <span>Welcome back.</span>
           </div>
-          <div className={s.formGroup}>
-            <input
-              className={s.input}
-              id="password"
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
+          {errors}
+          <form method="post">
+            <div className={s.formGroup}>
+              <input
+                className={s.input}
+                id="email"
+                type="text"
+                name="email"
+                placeholder="Email Address"
+                defaultValue={this.props.query.email}
+              />
+            </div>
+            <div className={s.formGroup}>
+              <input
+                className={s.input}
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
+            <div className={[s.buttonContainer, s.formGroup].join(' ')}>
+              <button className={s.button} type="submit">
+                LOG IN
+              </button>
+            </div>
+          </form>
+          <div className={s.registration}>
+            Click <Link to="/register">here</Link> to sign up
           </div>
-          <div className={[s.buttonContainer, s.formGroup].join(' ')}>
-            <button className={s.button} type="submit">
-              LOG IN
-            </button>
-          </div>
-        </form>
-        <div className={s.registration}>
-          Click <Link to="/register">here</Link> to sign up
         </div>
       </div>
     );
