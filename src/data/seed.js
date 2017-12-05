@@ -115,6 +115,87 @@ const seed = async function seed() {
     glutenFree: true,
   });
 
+  await createUser('user2@gmail.com', {
+    password: 'testtest',
+    name: 'Joe Smith',
+    age: 25,
+    vegan: true,
+    vegetarian: false,
+    glutenFree: true,
+  });
+
+  await createUser('user3@gmail.com', {
+    password: 'testtest',
+    name: 'Bob Saget',
+    age: 65,
+    vegan: false,
+    vegetarian: false,
+    glutenFree: false,
+  });
+
+  await createUser('user4@gmail.com', {
+    password: 'testtest',
+    name: 'Robert E. Lee',
+    age: 90,
+    vegan: false,
+    vegetarian: false,
+    glutenFree: true,
+  });
+
+  await createUser('user5@gmail.com', {
+    password: 'testtest',
+    name: 'Cookie Monster',
+    age: 50,
+    vegan: false,
+    vegetarian: true,
+    glutenFree: false,
+  });
+
+  await createUser('user6@gmail.com', {
+    password: 'testtest',
+    name: 'Mike James',
+    age: 18,
+    vegan: true,
+    vegetarian: true,
+    glutenFree: false,
+  });
+
+  await createUser('user7@gmail.com', {
+    password: 'testtest',
+    name: 'Joe Jones',
+    age: 20,
+    vegan: false,
+    vegetarian: true,
+    glutenFree: false,
+  });
+
+  await createUser('user8@gmail.com', {
+    password: 'testtest',
+    name: 'Joseph Michael',
+    age: 30,
+    vegan: false,
+    vegetarian: true,
+    glutenFree: true,
+  });
+
+  await createUser('user9@gmail.com', {
+    password: 'testtest',
+    name: 'Michael Jackson',
+    age: 52,
+    vegan: true,
+    vegetarian: true,
+    glutenFree: true,
+  });
+
+  await createUser('user10@gmail.com', {
+    password: 'testtest',
+    name: 'Lil Bill',
+    age: 10,
+    vegan: true,
+    vegetarian: true,
+    glutenFree: false,
+  });
+
   await createVendor('vendor1@gmail.com', {
     password: 'testtest',
     companyName: 'Toxic Tacos',
