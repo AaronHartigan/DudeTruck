@@ -28,3 +28,4 @@ class Footer extends React.Component {
 }
 
 export default withStyles(s)(Footer);
+export { Footer as FooterTest };

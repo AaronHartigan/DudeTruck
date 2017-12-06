@@ -311,3 +311,4 @@ class Feedback extends React.Component {
 }
 
 export default withStyles(s)(Feedback);
+export { Feedback as FeedbackTest };

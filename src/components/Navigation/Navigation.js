@@ -53,3 +53,4 @@ class Navigation extends React.Component {
 }
 
 export default withStyles(s)(Navigation);
+export { Navigation as NavigationTest };

@@ -58,3 +58,4 @@ class Stars extends React.Component {
 }
 
 export default withStyles(s)(Stars);
+export { Stars as StarsTest };

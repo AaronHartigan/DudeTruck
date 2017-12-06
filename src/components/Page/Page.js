@@ -35,3 +35,4 @@ class Page extends React.Component {
 }
 
 export default withStyles(s)(Page);
+export { Page as PageTest };

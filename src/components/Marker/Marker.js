@@ -20,3 +20,4 @@ class Marker extends React.Component {
 }
 
 export default withStyles(s)(Marker);
+export { Marker as MarkerTest };

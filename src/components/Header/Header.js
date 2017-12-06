@@ -36,3 +36,4 @@ class Header extends React.Component {
 }
 
 export default withStyles(s)(Header);
+export { Header as HeaderTest };

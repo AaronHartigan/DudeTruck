@@ -9,3 +9,4 @@ class Spinner extends React.Component {
 }
 
 export default withStyles(s)(Spinner);
+export { Spinner as SpinnerTest };

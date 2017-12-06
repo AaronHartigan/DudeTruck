@@ -2,8 +2,8 @@
 /* eslint-disable padded-blocks, no-unused-expressions */
 
 import React from 'react';
-import { shallow } from 'enzyme';
 import GoogleMapReact from 'google-map-react';
+import { shallow } from 'enzyme';
 import { SearchTest } from './Search';
 import Spinner from '../Spinner';
 

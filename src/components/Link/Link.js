@@ -58,3 +58,4 @@ class Link extends React.Component {
 }
 
 export default Link;
+export { Link as LinkTest };

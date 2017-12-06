@@ -148,3 +148,4 @@ class Vendor extends React.Component {
 }
 
 export default withStyles(s)(Vendor);
+export { Vendor as VendorTest };
