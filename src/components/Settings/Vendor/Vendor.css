@@ -21,17 +21,6 @@ h1 {
   text-align: center;
 }
 
-.show {
-  opacity: 1;
-}
-
-.hide {
-  transition: 500ms all ease;
-  opacity: 0;
-  will-change: opacity;
-  pointer-events: none;
-}
-
 .bold {
   font-weight: 600;
 }
@@ -128,4 +117,9 @@ input {
 .button:hover {
   background-color: var(--font-highlight-color);
   cursor: pointer;
+}
+
+.button:disabled {
+  background-color: var(--font-disabled-color);
+  cursor: not-allowed;
 }

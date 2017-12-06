@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './User.css';
 
-let timer;
-
 class User extends React.Component {
   static contextTypes = {
     fetch: PropTypes.func.isRequired,
@@ -40,7 +38,6 @@ class User extends React.Component {
       vegetarian: this.props.settings.vegetarian,
       glutenFree: this.props.settings.glutenFree,
       isLoading: false,
-      hasRecentSaveSuccess: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,28 +46,16 @@ class User extends React.Component {
     this.hideLoading = this.hideLoading.bind(this);
   }
 
-  componentWillUnmount() {
-    clearTimeout(timer);
-  }
-
   showLoading() {
     this.setState({
       isLoading: true,
-      hasRecentSaveSuccess: false,
     });
   }
 
   hideLoading() {
     this.setState({
       isLoading: false,
-      hasRecentSaveSuccess: true,
     });
-
-    timer = setTimeout(() => {
-      this.setState({
-        hasRecentSaveSuccess: false,
-      });
-    }, 1250);
   }
 
   handleChange(event) {
@@ -115,6 +100,8 @@ class User extends React.Component {
   }
 
   render() {
+    const submitText = this.state.isLoading ? 'Saving...' : 'Save';
+
     return (
       <div className={s.root}>
         <h1>User Settings</h1>
@@ -183,15 +170,12 @@ class User extends React.Component {
                 />
               </label>
             </div>
-            <input className={s.button} type="submit" value="Save" />
-            {this.state.isLoading && <span>Saving...</span>}
-            {!this.state.isLoading && (
-              <span
-                className={this.state.hasRecentSaveSuccess ? s.show : s.hide}
-              >
-                Saved!
-              </span>
-            )}
+            <input
+              disabled={this.state.isLoading}
+              className={s.button}
+              type="submit"
+              value={submitText}
+            />
           </form>
         </div>
       </div>
@@ -200,3 +184,4 @@ class User extends React.Component {
 }
 
 export default withStyles(s)(User);
+export { User as UserTest };

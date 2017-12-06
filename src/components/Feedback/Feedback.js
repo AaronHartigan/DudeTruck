@@ -89,19 +89,19 @@ class Feedback extends React.Component {
 
   setReviews(data = {}) {
     const reviews = data.feedbackList || [];
-    const myReview = data.myReview || {};
+    const myReview = data.myReview;
 
     let review = '';
     let rating = '';
     let name = '';
     let age = '';
     let hasReview = false;
-    if (myReview.review) {
+    if (myReview) {
       review = myReview.review;
       rating = myReview.rating;
       name = myReview.name;
       age = myReview.age;
-      hasReview = true;
+      hasReview = !!myReview.rating;
     }
 
     this.setState({

@@ -200,7 +200,7 @@ const seed = async function seed() {
     password: 'testtest',
     companyName: 'Toxic Tacos',
     logo:
-      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/toxic_tacos.jpg',
     description: 'Tacos that make you wish you had not ordered our food.',
     phone: '(916) 123-4567',
     schedule: 'MWF 1pm-6pm',
@@ -215,7 +215,7 @@ const seed = async function seed() {
     password: 'testtest',
     companyName: 'StarTruck',
     logo:
-      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/star_truck.jpg',
     description: 'Coffee, with a twist.',
     phone: '(916) 123-4567',
     schedule: 'Sat Sun 5pm-9pm',
@@ -230,7 +230,7 @@ const seed = async function seed() {
     password: 'testtest',
     companyName: "Swaine's Brains",
     logo:
-      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/swaines_brains.jpg',
     description: 'A Halloween classic!',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',
@@ -245,7 +245,7 @@ const seed = async function seed() {
     password: 'testtest',
     companyName: 'Burgatory',
     logo:
-      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/default.jpg',
+      'https://s3-us-west-1.amazonaws.com/dudetruck-logos/logos/burgatory.jpg',
     description: 'Are you ready?',
     phone: '(916) 123-4567',
     schedule: 'Mon-Fri 1pm-7pm',

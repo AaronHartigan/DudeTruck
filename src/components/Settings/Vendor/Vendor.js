@@ -126,21 +126,13 @@ class Vendor extends React.Component {
   showLoading() {
     this.setState({
       isLoading: true,
-      hasRecentSaveSuccess: false,
     });
   }
 
   hideLoading() {
     this.setState({
       isLoading: false,
-      hasRecentSaveSuccess: true,
     });
-
-    setTimeout(() => {
-      this.setState({
-        hasRecentSaveSuccess: false,
-      });
-    }, 1250);
   }
 
   handleCoords(pos) {
@@ -190,6 +182,8 @@ class Vendor extends React.Component {
   }
 
   render() {
+    const submitText = this.state.isLoading ? 'Saving...' : 'Save';
+
     return (
       <div className={s.root}>
         <h1>Vendor Settings</h1>
@@ -308,15 +302,12 @@ class Vendor extends React.Component {
                 Set Location
               </button>
             </div>
-            <input className={s.button} type="submit" value="Save" />
-            {this.state.isLoading && <span>Saving...</span>}
-            {!this.state.isLoading && (
-              <span
-                className={this.state.hasRecentSaveSuccess ? s.show : s.hide}
-              >
-                Saved!
-              </span>
-            )}
+            <input
+              disabled={this.state.isLoading}
+              className={s.button}
+              type="submit"
+              value={submitText}
+            />
           </form>
         </div>
       </div>
