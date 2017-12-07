@@ -72,6 +72,8 @@ To see code coverage, run:
 $ jest --coverage
 ```
 Note: this requires jest to have been installed `npm install -g jest`
+Here is the current code coverage report.
+![coverage](https://i.imgur.com/KBiRqo8.png)
 
 ### How to Update
 
